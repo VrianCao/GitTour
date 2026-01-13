@@ -31,9 +31,9 @@
 - [x] **05-advanced**: 深入 Rebase, Cherry-pick, Reset 及历史重写。
 
 #### 第三阶段：原理与生态 (优先级：中)
-- [ ] **06-internals**: 解释 .git 目录结构、对象模型 (Blob/Tree/Commit)。
-- [ ] **07-workflows**: 对比 Gitflow, Trunk-based 等工作流。
-- [ ] **08-tools** & **09-maintenance**: 工具链配置与仓库维护。
+- [x] **06-internals**: 解释 .git 目录结构、对象模型 (Blob/Tree/Commit)。
+- [x] **07-workflows**: 对比 Gitflow, Trunk-based 等工作流。
+- [x] **08-tools** & **09-maintenance**: 工具链配置与仓库维护。
 
 #### 第四阶段：润色与可视化 (持续进行)
 - [ ] 为复杂概念添加 Mermaid 流程图。
