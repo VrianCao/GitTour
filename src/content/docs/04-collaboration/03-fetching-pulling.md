@@ -50,31 +50,31 @@ graph TD
 
     subgraph Local_Before [本地仓库 (初始状态)]
         L_C1((C1)) --> L_C2((C2))
-        HEAD_B[HEAD] --> master_B[master] --> L_C2
-        origin_master_B[origin/master] --> L_C2
+        HEAD_B[HEAD] --> main_B[main] --> L_C2
+        origin_main_B[origin/main] --> L_C2
     end
 
     subgraph Local_Fetch [执行 git fetch 后]
         L2_C1((C1)) --> L2_C2((C2)) --> L2_C3((C3))
-        HEAD_F[HEAD] --> master_F[master] --> L2_C2
-        origin_master_F[origin/master] --> L2_C3
-        style master_F fill:#ff9,stroke:#333
-        style origin_master_F fill:#9f9,stroke:#333
+        HEAD_F[HEAD] --> main_F[main] --> L2_C2
+        origin_main_F[origin/main] --> L2_C3
+        style main_F fill:#ff9,stroke:#333
+        style origin_main_F fill:#9f9,stroke:#333
     end
 
     subgraph Local_Pull [执行 git pull 后]
         L3_C1((C1)) --> L3_C2((C2)) --> L3_C3((C3))
-        HEAD_P[HEAD] --> master_P[master] --> L3_C3
-        origin_master_P[origin/master] --> L3_C3
-        style master_P fill:#9f9,stroke:#333
+        HEAD_P[HEAD] --> main_P[main] --> L3_C3
+        origin_main_P[origin/main] --> L3_C3
+        style main_P fill:#9f9,stroke:#333
     end
-
+    
     Remote -.-> Local_Fetch
     Remote -.-> Local_Pull
 ```
 
-- **Local_Fetch**: `origin/master` 指针向前移动了，但你的 `master` 指针还在原地。你的工作目录未受影响。
-- **Local_Pull**: `origin/master` 移动了，并且你的 `master` 指针也被更新（合并）到了最新位置。
+- **Local_Fetch**: `origin/main` 指针向前移动了，但你的 `main` 指针还在原地。你的工作目录未受影响。
+- **Local_Pull**: `origin/main` 移动了，并且你的 `main` 指针也被更新（合并）到了最新位置。
 
 ## 总结
 

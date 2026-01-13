@@ -99,8 +99,8 @@ git status -s
 | **`#`** | 注释 | `# 这是一个注释` | 被 Git 忽略的行 |
 | **`*`** | 零个或多个字符 | `*.log` | 忽略所有以 `.log` 结尾的文件 |
 | **`?`** | 单个字符 | `access?.log` | 匹配 `access1.log` 但不匹配 `access10.log` |
-| **`[]`** | 范围匹配 | `image.[png]` | 匹配 `image.p`, `image.n`, `image.g` (注意通常写为 `*.[png]` 等组合) <br> 更常见用法：`image.[a-z]` |
-| **`/` (开头)** | 防止递归 | `/TODO` | 忽略根目录下的 `TODO` 文件，但不忽略 `docs/TODO` |
+| **`[]`** | 范围匹配 | `log.[0-9]` | 匹配 `log.0`, `log.1` 等 (注意：不要误用为 `*.png`，扩展名应直接写为 `*.png`) |
+| **`/` (开头)** | 锚定根目录 | `/TODO` | 仅匹配当前 .gitignore 所在目录下的 `TODO` 文件，**不**匹配 `docs/TODO` |
 | **`/` (结尾)** | 指明目录 | `build/` | 忽略 `build` 目录下的所有内容 |
 | **`!`** | 取反 (不忽略) | `!important.log` | 即使前面写了 `*.log`，也要强制跟踪这个文件 |
 | **`**`** | 跨目录匹配 | `src/**/*.css` | 匹配 `src/a.css`, `src/b/c.css` 等 |
@@ -112,7 +112,9 @@ git status -s
 ```gitignore
 # 依赖目录 (由包管理器安装)
 node_modules/
-pnpm-lock.yaml
+
+# 注意：通常不要忽略 pnpm-lock.yaml / package-lock.json，锁定文件应提交以保证版本一致性
+# pnpm-lock.yaml 
 
 # 构建产出
 dist/

@@ -11,11 +11,11 @@ description: "理解 Git 文件的生命周期，掌握工作区、暂存区与�
 
 工作目录下的每一个文件都不外乎这两种状态：**已跟踪（Tracked）** 或 **未跟踪（Untracked）**。
 
-- **已跟踪（Tracked）**：指那些已经包含在在上一次提交快照中的文件。它们又可以分为三种子状态：
+- **已跟踪（Tracked）**：指那些 Git 已经知道的文件（已提交或已暂存）。它们又可以分为三种子状态：
     - **未修改（Unmodified）**：自上次提交后未曾改动。
     - **已修改（Modified）**：自上次提交后被修改了，但还没放到暂存区。
     - **已暂存（Staged）**：修改已放入暂存区，准备下次提交。
-- **未跟踪（Untracked）**：除了已跟踪文件之外的所有其他文件。通常是新创建的文件，Git 还没把它们纳入管理。
+- **未跟踪（Untracked）**：Git 尚未管理的任何文件（既没有在上次提交中，也没有在暂存区中）。
 
 下图展示了文件的生命周期流转：
 
@@ -25,7 +25,7 @@ graph LR
     Unmodified((未修改)) -- 编辑文件 --> Modified((已修改))
     Modified -- "git add" --> Staged((已暂存))
     Staged -- "git commit" --> Unmodified
-    Unmodified -- "git rm" --> Untracked
+    Unmodified -- "git rm" --> Untracked((移除))
     
     style Untracked fill:#f9f,stroke:#333,stroke-width:2px
     style Unmodified fill:#fff,stroke:#333,stroke-width:2px
@@ -48,6 +48,13 @@ graph LR
     - **工作区**就像是**商品货架**。你可以随时把商品（文件）拿下来看，也可以放回去，或者弄坏它。
     - **暂存区**就像是**购物车**。当你决定要买某件商品时，你会把它放入购物车（`git add`）。你可以往购物车里放很多商品，也可以拿出来。
     - **仓库**就像是**生成的订单**。当你点击“结算”时（`git commit`），购物车里的所有东西会生成一张永久的订单记录。
+    :::
+
+    :::tip[关于移除文件]
+    使用 `git rm <file>` 会将文件从 Git 中移除并**删除物理文件**。
+    如果你想从 Git 中移除但**保留物理文件**（比如误提交了配置文件），请使用：
+    `git rm --cached <file>`
+    此时文件会变成 **Untracked** 状态。
     :::
 
     或者用**照相**来比喻：

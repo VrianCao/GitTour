@@ -114,8 +114,21 @@ git submodule deinit third-party/utils
 # 2. 从 git 索引和 .gitmodules 中移除
 git rm third-party/utils
 
+import { Tabs, TabItem } from '@astrojs/starlight/components';
+
 # 3. 删除残留的 .git/modules 目录（可选，为了彻底清理）
-rm -rf .git/modules/third-party/utils
+<Tabs>
+  <TabItem label="Bash (Mac/Linux/Git Bash)">
+    ```bash
+    rm -rf .git/modules/third-party/utils
+    ```
+  </TabItem>
+  <TabItem label="PowerShell (Windows)">
+    ```powershell
+    Remove-Item -Recurse -Force .git/modules/third-party/utils
+    ```
+  </TabItem>
+</Tabs>
 ```
 
 ## 5. 总结

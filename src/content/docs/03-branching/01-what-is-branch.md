@@ -58,10 +58,15 @@ gitGraph
 
 这就引入了 **HEAD** 的概念。
 
-HEAD 是一个特殊的指针，它是一个指向**当前所在本地分支**的指针。可以将它理解为“当前检出（Checkout）的分支”。
+HEAD 是一个特殊的指针，它通常指向**当前所在本地分支**。可以将它理解为“当前检出（Checkout）的分支”。
 
 *   如果 HEAD 指向 `master`，那么你就在 master 分支上。
 *   如果 HEAD 指向 `testing`，那么你就在 testing 分支上。
+
+:::note[Detached HEAD (游离状态)]
+虽然 HEAD 通常指向分支，但你也可以让它直接指向某个 **Commit**（例如 `git checkout <commit-hash>`）。
+这种状态称为 **Detached HEAD**（头指针游离）。此时你不在任何分支上，新的提交如果不建立新分支引用，可能会丢失。
+:::
 
 ```mermaid
 graph TD
