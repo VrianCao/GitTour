@@ -14,10 +14,71 @@ import DefaultHead from '@astrojs/starlight/components/Head.astro';
 		return mermaidPromise;
 	};
 
-	const getMermaidTheme = () => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default');
+	const isDarkMode = () => document.documentElement.dataset.theme === 'dark';
 
-	let initializedTheme = null;
+	let initializedMode = null;
 	let renderScheduled = false;
+
+	const css = () => getComputedStyle(document.documentElement);
+	const colorProbe = document.createElement('span');
+	colorProbe.style.position = 'absolute';
+	colorProbe.style.width = '0';
+	colorProbe.style.height = '0';
+	colorProbe.style.overflow = 'hidden';
+	document.body.appendChild(colorProbe);
+
+	const rgbToHex = (rgb) => {
+		const match = rgb.match(/rgba?\((\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
+		if (!match) return null;
+		const toHex = (n) => Number(n).toString(16).padStart(2, '0');
+		return `#${toHex(match[1])}${toHex(match[2])}${toHex(match[3])}`;
+	};
+
+	const toHexColor = (value, fallback) => {
+		const raw = (value || fallback || '').trim();
+		if (!raw) return '#000000';
+		if (raw.startsWith('#')) return raw;
+		colorProbe.style.color = raw;
+		return rgbToHex(getComputedStyle(colorProbe).color) || '#000000';
+	};
+
+	const getVar = (name, fallback) => toHexColor(css().getPropertyValue(name), fallback);
+
+	const getMermaidThemeVariables = (darkMode) => {
+		const surface = getVar('--sl-color-bg-inline-code', darkMode ? '#111827' : '#f4f4f4');
+		const surfaceAlt = getVar('--sl-color-bg-nav', darkMode ? '#0b1220' : '#ffffff');
+		const text = getVar('--sl-color-text', darkMode ? '#e5e7eb' : '#111827');
+		const textStrong = getVar('--sl-color-gray-1', darkMode ? '#f3f4f6' : '#0f172a');
+		const line = getVar('--sl-color-gray-3', darkMode ? '#9ca3af' : '#4b5563');
+		const border = getVar('--sl-color-hairline-light', darkMode ? '#334155' : '#cbd5e1');
+		const accent = getVar('--sl-color-accent', '#f05033');
+		const accentLow = getVar('--sl-color-accent-low', darkMode ? '#2a0d08' : '#ffe6e1');
+
+		return {
+			darkMode,
+			// Only hex colors are supported by Mermaid's theming engine.
+			background: surface,
+			fontFamily: 'system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "Liberation Sans", sans-serif',
+			primaryColor: surfaceAlt,
+			primaryTextColor: textStrong,
+			primaryBorderColor: border,
+			secondaryColor: surface,
+			secondaryTextColor: textStrong,
+			secondaryBorderColor: border,
+			tertiaryColor: accentLow,
+			tertiaryTextColor: textStrong,
+			tertiaryBorderColor: accent,
+			textColor: text,
+			lineColor: line,
+			edgeLabelBackground: surface,
+			clusterBkg: surface,
+			clusterBorder: border,
+			titleColor: textStrong,
+			noteBkgColor: surface,
+			noteTextColor: textStrong,
+			noteBorderColor: border,
+		};
+	};
 
 	function extractMermaidSourceFromPre(pre) {
 		const figure = pre.closest('figure');
@@ -56,14 +117,15 @@ import DefaultHead from '@astrojs/starlight/components/Head.astro';
 
 		const mermaid = await getMermaid();
 
-		const theme = getMermaidTheme();
-		if (theme !== initializedTheme) {
+		const darkMode = isDarkMode();
+		if (darkMode !== initializedMode) {
 			mermaid.initialize({
 				startOnLoad: false,
-				theme,
+				theme: 'base',
+				themeVariables: getMermaidThemeVariables(darkMode),
 				securityLevel: 'strict',
 			});
-			initializedTheme = theme;
+			initializedMode = darkMode;
 		}
 
 		for (const node of nodes) {

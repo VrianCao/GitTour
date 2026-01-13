@@ -13,9 +13,20 @@
 
 .mermaid {
 	overflow-x: auto;
+	background: var(--sl-color-bg-inline-code);
+	border: 1px solid var(--sl-color-hairline-light);
+	border-radius: 0.75rem;
+	padding: 0.75rem;
+	margin-block: 1rem;
 }
 
 .mermaid svg {
 	max-width: 100%;
 	height: auto;
+	display: block;
+}
+
+/* Improve contrast on dark theme */
+:root[data-theme='dark'] .mermaid {
+	border-color: var(--sl-color-hairline);
 }
