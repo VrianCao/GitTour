@@ -16,11 +16,24 @@ import DefaultHead from '@astrojs/starlight/components/Head.astro';
 		return mod.default ?? mod;
 	}
 
-	function normalizeMermaidBlocks() {
-		const codeBlocks = document.querySelectorAll('code.language-mermaid, code.lang-mermaid');
+	function extractMermaidSource(pre) {
+		const copyButton = pre.closest('figure')?.querySelector('button[data-code]');
+		const dataCode = copyButton?.getAttribute('data-code');
+		if (dataCode) return dataCode.split('\u007f').join('\n').trim();
 
-		for (const codeBlock of codeBlocks) {
-			const source = (codeBlock.textContent || '').trim();
+		const lines = Array.from(pre.querySelectorAll('.ec-line .code')).map((line) => line.textContent ?? '');
+		if (lines.length) return lines.join('\n').trim();
+
+		return (pre.textContent || '').trim();
+	}
+
+	function normalizeMermaidBlocks() {
+		const preBlocks = document.querySelectorAll('pre[data-language="mermaid"]');
+
+		for (const pre of preBlocks) {
+			if (!(pre instanceof HTMLPreElement)) continue;
+
+			const source = extractMermaidSource(pre);
 			if (!source) continue;
 
 			const container = document.createElement('div');
@@ -28,12 +41,7 @@ import DefaultHead from '@astrojs/starlight/components/Head.astro';
 			container.dataset.mermaidSource = source;
 			container.textContent = source;
 
-			const target =
-				codeBlock.closest('figure.expressive-code') ||
-				codeBlock.closest('pre') ||
-				codeBlock.parentElement ||
-				codeBlock;
-
+			const target = pre.closest('figure') || pre;
 			target.replaceWith(container);
 		}
 	}
