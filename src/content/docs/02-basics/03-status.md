@@ -84,7 +84,7 @@ git status -s
 - **系统文件**：如 macOS 的 `.DS_Store` 或 Windows 的 `Thumbs.db`。
 - **敏感配置**：如包含 API 密钥的 `.env` 文件。
 
-为了让 `git status` 保持清爽，避免误提交这些垃圾文件，我们需要配置 `.gitignore`。
+为了让 `git status` 保持清爽，避免误提交这些无关文件，我们需要配置 `.gitignore`。
 
 ### 创建 .gitignore
 
