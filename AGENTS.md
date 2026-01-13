@@ -27,8 +27,8 @@
 - [x] **03-branching**: 编写分支创建、合并及冲突解决机制。
 
 #### 第二阶段：协作与进阶 (优先级：高)
-- [ ] **04-collaboration**: 远程仓库交互、GitHub PR 流程。
-- [ ] **05-advanced**: 深入 Rebase, Cherry-pick, Reset 及历史重写。
+- [x] **04-collaboration**: 远程仓库交互、GitHub PR 流程。
+- [x] **05-advanced**: 深入 Rebase, Cherry-pick, Reset 及历史重写。
 
 #### 第三阶段：原理与生态 (优先级：中)
 - [ ] **06-internals**: 解释 .git 目录结构、对象模型 (Blob/Tree/Commit)。
