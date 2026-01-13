@@ -5,35 +5,38 @@ import DefaultHead from '@astrojs/starlight/components/Head.astro';
 <DefaultHead />
 <slot />
 
-<script type="module">
-	const getActiveTheme = () => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default');
+<script>
+	let mermaidPromise;
+	const getMermaid = async () => {
+		if (!mermaidPromise) {
+			mermaidPromise = import('mermaid').then((mod) => mod.default ?? mod);
+		}
+		return mermaidPromise;
+	};
 
+	const getMermaidTheme = () => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default');
+
+	let initializedTheme = null;
 	let renderScheduled = false;
-	let lastTheme = null;
 
-	async function getMermaid() {
-		const mod = await import('mermaid');
-		return mod.default ?? mod;
-	}
-
-	function extractMermaidSource(pre) {
-		const copyButton = pre.closest('figure')?.querySelector('button[data-code]');
+	function extractMermaidSourceFromPre(pre) {
+		const figure = pre.closest('figure');
+		const copyButton = figure?.querySelector('button[data-code]');
 		const dataCode = copyButton?.getAttribute('data-code');
 		if (dataCode) return dataCode.split('\u007f').join('\n').trim();
 
 		const lines = Array.from(pre.querySelectorAll('.ec-line .code')).map((line) => line.textContent ?? '');
-		if (lines.length) return lines.join('\n').trim();
+		const joined = lines.join('\n').trim();
+		if (joined) return joined;
 
-		return (pre.textContent || '').trim();
+		return (pre.textContent ?? '').trim();
 	}
 
 	function normalizeMermaidBlocks() {
 		const preBlocks = document.querySelectorAll('pre[data-language="mermaid"]');
 
 		for (const pre of preBlocks) {
-			if (!(pre instanceof HTMLPreElement)) continue;
-
-			const source = extractMermaidSource(pre);
+			const source = extractMermaidSourceFromPre(pre);
 			if (!source) continue;
 
 			const container = document.createElement('div');
@@ -41,8 +44,7 @@ import DefaultHead from '@astrojs/starlight/components/Head.astro';
 			container.dataset.mermaidSource = source;
 			container.textContent = source;
 
-			const target = pre.closest('figure') || pre;
-			target.replaceWith(container);
+			(pre.closest('figure') ?? pre).replaceWith(container);
 		}
 	}
 
@@ -52,28 +54,26 @@ import DefaultHead from '@astrojs/starlight/components/Head.astro';
 		const nodes = Array.from(document.querySelectorAll('.mermaid'));
 		if (nodes.length === 0) return;
 
-		const theme = getActiveTheme();
 		const mermaid = await getMermaid();
 
-		if (theme !== lastTheme) {
+		const theme = getMermaidTheme();
+		if (theme !== initializedTheme) {
 			mermaid.initialize({
 				startOnLoad: false,
 				theme,
 				securityLevel: 'strict',
 			});
-			lastTheme = theme;
+			initializedTheme = theme;
 		}
 
 		for (const node of nodes) {
 			const source = node.dataset.mermaidSource;
-			if (source) node.textContent = source;
+			if (!source) continue;
+			node.textContent = source;
+			node.removeAttribute('data-processed');
 		}
 
-		try {
-			await mermaid.run({ nodes });
-		} catch (err) {
-			console.warn('[mermaid] render failed', err);
-		}
+		await mermaid.run({ nodes });
 	}
 
 	function scheduleRender() {
@@ -81,7 +81,7 @@ import DefaultHead from '@astrojs/starlight/components/Head.astro';
 		renderScheduled = true;
 		requestAnimationFrame(() => {
 			renderScheduled = false;
-			renderMermaid().catch((err) => console.warn('[mermaid] init failed', err));
+			renderMermaid().catch((err) => console.warn('[mermaid] render failed', err));
 		});
 	}
 
@@ -91,11 +91,9 @@ import DefaultHead from '@astrojs/starlight/components/Head.astro';
 		scheduleRender();
 	}
 
-	// Support Astro view transitions / client-side navigations.
 	document.addEventListener('astro:page-load', scheduleRender);
 	document.addEventListener('astro:after-swap', scheduleRender);
 
-	// Re-render when Starlight theme changes.
 	new MutationObserver(scheduleRender).observe(document.documentElement, {
 		attributes: true,
 		attributeFilter: ['data-theme'],
