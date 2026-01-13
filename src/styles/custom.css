@@ -1,0 +1,21 @@
+:root {
+	/* Git brand-inspired accent colors */
+	--sl-color-accent-low: #2a0d08;
+	--sl-color-accent: #f05033;
+	--sl-color-accent-high: #ffd2c9;
+}
+
+:root[data-theme='light'] {
+	--sl-color-accent-high: #a73422;
+	--sl-color-accent: #f05033;
+	--sl-color-accent-low: #ffe6e1;
+}
+
+.mermaid {
+	overflow-x: auto;
+}
+
+.mermaid svg {
+	max-width: 100%;
+	height: auto;
+}

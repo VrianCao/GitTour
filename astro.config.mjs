@@ -4,18 +4,32 @@ import starlight from '@astrojs/starlight';
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://gittour.pages.dev',
 	integrations: [
 		starlight({
 			title: 'GitTour',
-			defaultLocale: 'zh-cn',
+			description: '全网最全面的中文 Git 教程，从入门到专家一路打通。',
+			logo: { src: './src/assets/git.svg', alt: 'GitTour' },
 			locales: {
 				root: {
 					label: '简体中文',
-					lang: 'zh-cn',
+					lang: 'zh-CN',
 				},
 			},
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/VrianCao/GitTour' }],
+			editLink: { baseUrl: 'https://github.com/VrianCao/GitTour/edit/master/' },
+			lastUpdated: true,
+			customCss: ['./src/styles/custom.css'],
+			expressiveCode: {
+				shiki: {
+					langAlias: {
+						gitignore: 'shellscript',
+					},
+				},
+			},
+			components: { Head: './src/components/Head.astro' },
 			sidebar: [
+				{ label: '首页', link: '/' },
 				{
 					label: '01. 入门篇：Git 初相见',
 					autogenerate: { directory: '01-getting-started' },

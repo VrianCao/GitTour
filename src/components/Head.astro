@@ -1,0 +1,95 @@
+---
+import DefaultHead from '@astrojs/starlight/components/Head.astro';
+---
+
+<DefaultHead />
+<slot />
+
+<script type="module">
+	const getActiveTheme = () => (document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default');
+
+	let renderScheduled = false;
+	let lastTheme = null;
+
+	async function getMermaid() {
+		const mod = await import('mermaid');
+		return mod.default ?? mod;
+	}
+
+	function normalizeMermaidBlocks() {
+		const codeBlocks = document.querySelectorAll('code.language-mermaid, code.lang-mermaid');
+
+		for (const codeBlock of codeBlocks) {
+			const source = (codeBlock.textContent || '').trim();
+			if (!source) continue;
+
+			const container = document.createElement('div');
+			container.className = 'mermaid';
+			container.dataset.mermaidSource = source;
+			container.textContent = source;
+
+			const target =
+				codeBlock.closest('figure.expressive-code') ||
+				codeBlock.closest('pre') ||
+				codeBlock.parentElement ||
+				codeBlock;
+
+			target.replaceWith(container);
+		}
+	}
+
+	async function renderMermaid() {
+		normalizeMermaidBlocks();
+
+		const nodes = Array.from(document.querySelectorAll('.mermaid'));
+		if (nodes.length === 0) return;
+
+		const theme = getActiveTheme();
+		const mermaid = await getMermaid();
+
+		if (theme !== lastTheme) {
+			mermaid.initialize({
+				startOnLoad: false,
+				theme,
+				securityLevel: 'strict',
+			});
+			lastTheme = theme;
+		}
+
+		for (const node of nodes) {
+			const source = node.dataset.mermaidSource;
+			if (source) node.textContent = source;
+		}
+
+		try {
+			await mermaid.run({ nodes });
+		} catch (err) {
+			console.warn('[mermaid] render failed', err);
+		}
+	}
+
+	function scheduleRender() {
+		if (renderScheduled) return;
+		renderScheduled = true;
+		requestAnimationFrame(() => {
+			renderScheduled = false;
+			renderMermaid().catch((err) => console.warn('[mermaid] init failed', err));
+		});
+	}
+
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', scheduleRender, { once: true });
+	} else {
+		scheduleRender();
+	}
+
+	// Support Astro view transitions / client-side navigations.
+	document.addEventListener('astro:page-load', scheduleRender);
+	document.addEventListener('astro:after-swap', scheduleRender);
+
+	// Re-render when Starlight theme changes.
+	new MutationObserver(scheduleRender).observe(document.documentElement, {
+		attributes: true,
+		attributeFilter: ['data-theme'],
+	});
+</script>
