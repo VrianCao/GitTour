@@ -48,7 +48,7 @@ graph TD
         R_C1((C1)) --> R_C2((C2)) --> R_C3((C3))
     end
 
-    subgraph Local_Before [本地仓库 (初始状态)]
+    subgraph Local_Before["本地仓库 (初始状态)"]
         L_C1((C1)) --> L_C2((C2))
         HEAD_B[HEAD] --> main_B[main] --> L_C2
         origin_main_B[origin/main] --> L_C2

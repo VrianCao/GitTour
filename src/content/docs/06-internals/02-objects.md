@@ -70,17 +70,17 @@ Commit 对象存储了：
 graph TD
     subgraph Git Database
     
-    C1[Commit Object<br/>(Initial Commit)] --> T1[Tree Object<br/>(Root Directory)]
-    C2[Commit Object<br/>(Second Commit)] --> T2[Tree Object<br/>(Root Directory)]
+    C1["Commit Object<br/>(Initial Commit)"] --> T1["Tree Object<br/>(Root Directory)"]
+    C2["Commit Object<br/>(Second Commit)"] --> T2["Tree Object<br/>(Root Directory)"]
     C2 --> C1
     
-    T1 --> B1[Blob Object<br/>(file1.txt)]
-    T1 --> B2[Blob Object<br/>(file2.txt)]
+    T1 --> B1["Blob Object<br/>(file1.txt)"]
+    T1 --> B2["Blob Object<br/>(file2.txt)"]
     
     T2 --> B1
-    T2 --> B3[Blob Object<br/>(file2.txt - modified)]
+    T2 --> B3["Blob Object<br/>(file2.txt - modified)"]
     
-    Tag[Tag Object<br/>(v1.0)] -.-> C2
+    Tag["Tag Object<br/>(v1.0)"] -.-> C2
     
     end
     

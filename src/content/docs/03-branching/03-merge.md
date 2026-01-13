@@ -36,10 +36,10 @@ gitGraph
 gitGraph
    commit id: "C1"
    commit id: "C2"
-   commit id: "C3"
-   commit id: "C4"
    branch feature
    checkout feature
+   commit id: "C3"
+   commit id: "C4"
    checkout main
    merge feature
 ```

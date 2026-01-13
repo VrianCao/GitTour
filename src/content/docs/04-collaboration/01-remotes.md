@@ -12,11 +12,11 @@ title: "远程仓库的使用"
 
 ```mermaid
 graph LR
-    Local[本地仓库 (Local Repo)]
-    Remote[远程仓库 (Remote Repo)]
+    Local["本地仓库 (Local Repo)"]
+    Remote["远程仓库 (Remote Repo)"]
     
-    Local -- push (推送) --> Remote
-    Remote -- pull (拉取) --> Local
+    Local -- "push (推送)" --> Remote
+    Remote -- "pull (拉取)" --> Local
     
     style Local fill:#f9f,stroke:#333,stroke-width:2px
     style Remote fill:#bbf,stroke:#333,stroke-width:2px

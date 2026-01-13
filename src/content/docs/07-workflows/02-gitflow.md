@@ -61,6 +61,7 @@ Gitflow 使用两个长期存在的分支来记录项目的历史：
 ```mermaid
 gitGraph
    commit id: "Initial"
+   branch master
    branch develop
    checkout develop
    commit id: "Dev Start"
