@@ -9,7 +9,13 @@ description: "Git 的后悔药：使用 Reflog 找回丢失的提交、分支和
 
 ## 什么是 Reflog？
 
-Reflog（Reference Logs）记录了本地仓库中 HEAD 指针的每一次移动。无论是提交、合并、回滚、还是切换分支，Git 都会在 Reflog 中记上一笔。
+Reflog（Reference Logs）记录了本地仓库中引用（如 HEAD、分支名）的每一次变更。无论是提交、合并、回滚、还是切换分支，Git 都会在 Reflog 中记上一笔。
+
+除了默认的 `git reflog`（等同于 `git reflog show HEAD`），你还可以查看特定分支的 reflog：
+```bash
+git reflog show main
+git reflog show stash
+```
 
 **关键点**：
 -   Reflog 是**本地的**。它不会被推送到远程仓库。
@@ -61,21 +67,33 @@ e3b0a1f (HEAD -> main) HEAD@{0}: commit: fix login bug
 
 **情况**：你运行了 `git stash pop`，因为冲突解决失败或其他原因，Stash 列表空了，但工作区也是乱的，你想找回那个 Stash 原本的状态。
 
-Stash 的创建和丢弃本质上也是对象操作，虽然不在主 `HEAD` 的 reflog 里，但 Stash 也有自己的 reflog，且删除的对象通常还是悬空的。
+Stash 的创建和丢弃本质上也是对象操作。Stash 有自己的 reflog，删除的对象通常还是悬空的。
 
-如果 `git fsck` 太复杂，最快的方法是查看所有悬空提交（dangling commits）：
+**推荐恢复流程**：
 
-```bash
-git fsck --lost-found
-```
-这会列出一堆 ID。你可以用 `git show <id>` 一个个看。
+1.  **首选：查看 stash 的 reflog**
+    ```bash
+    git reflog show stash
+    ```
+    如果能看到记录，直接用哈希恢复：
+    ```bash
+    git stash apply <commit-hash>
+    ```
 
-找到后，恢复它：
-```bash
-git merge <id>
-# 或者
-git stash apply <id>
-```
+2.  **兜底：使用 fsck 查找悬空对象**
+    如果 stash reflog 已清空，可以查找悬空提交：
+    ```bash
+    git fsck --no-reflogs --unreachable | grep commit
+    ```
+    用 `git show <id>` 逐个检查内容。
+
+3.  **安全恢复**
+    找到目标后，建议先在隔离分支检查，而非直接合并：
+    ```bash
+    git branch recover-stash <id>
+    git checkout recover-stash
+    # 确认内容无误后再处理
+    ```
 
 ## 终极手段：文件系统级恢复
 
@@ -86,4 +104,4 @@ git stash apply <id>
 
 ## 总结
 
-`git reflog` 是 Git 最被低估的功能之一。记住：**只要你不运行 GC，Git 里的东西几乎永远不会丢。** 遇到灾难时，保持冷静，不要乱跑命令，先看 Reflog。
+`git reflog` 是 Git 最被低估的功能之一。记住：**在 reflog 未过期且对象未被修剪前，通常可以恢复。** 遇到灾难时，保持冷静，不要乱跑命令，先看 Reflog。

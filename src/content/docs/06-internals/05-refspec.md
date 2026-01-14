@@ -30,7 +30,7 @@ Refspec 定义了**本地引用**与**远程引用**之间的映射关系。
 ```
 
 让我们以此为例解读：
-- **`+`**：强制更新。即使本地的远程追踪分支历史与远程不一致，也强制覆盖。
+- **`+`**：允许非快进更新（等价于对该 refspec 应用 `--force` 行为）。即使本地的远程追踪分支历史与远程不一致，也强制覆盖。
 - **`src`: `refs/heads/*`**：远程仓库的 `refs/heads/` 下的所有引用（即远程的所有分支）。
 - **`dst`: `refs/remotes/origin/*`**：映射到本地仓库的 `refs/remotes/origin/` 下。
 
@@ -61,7 +61,7 @@ git push origin refs/heads/master:refs/heads/master
 
 ### 推送到不同名的分支
 
-你可以利用 Refspec 将本地分支推送到远程的一个**同名**分支：
+你可以利用 Refspec 将本地分支推送到远程的一个**不同名**的分支：
 
 ```bash
 # 将本地的 featureA 推送到远程的 featureB

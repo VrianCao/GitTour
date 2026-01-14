@@ -38,6 +38,10 @@ git branch
     git branch -a
     ```
 
+:::note[远程跟踪分支]
+`-r` 和 `-a` 显示的是**远程跟踪分支**（remote-tracking branches），它们是你本地仓库中对远程分支的缓存引用，并非实时的远程状态。如果远程已删除某个分支，你本地可能仍然看到它，直到执行 `git fetch --prune` 或 `git remote prune origin` 清理。
+:::
+
 ### 查看分支详情
 
 如果想知道每个分支最后一次提交的信息，可以使用 `-v` (verbose) 选项。
@@ -88,7 +92,7 @@ git branch --no-merged
 
 ### 安全删除
 
-使用 `-d` (delete) 选项可以安全地删除分支。Git 会检查该分支是否已经合并到当前分支（或其上游分支）。如果是，则允许删除；否则，Git 会拒绝删除并报错。
+使用 `-d` (delete) 选项可以安全地删除分支。Git 会检查该分支是否已 **fully merged**（完全合并）到 HEAD 或其 upstream 分支。如果是，则允许删除；否则，Git 会拒绝删除并报错，需要使用 `-D` 强制删除。
 
 ```bash
 git branch -d feature-login

@@ -26,7 +26,8 @@ description: "通过 .gitattributes 管理换行符、二进制文件差异对�
 **推荐配置：**
 
 ```properties
-# 默认行为：自动检测文本文件，检出为本地格式，提交为 LF
+# 默认行为：自动检测文本文件，在仓库中规范化为 LF
+# 检出到工作区的换行符由 eol= 属性或 Git 的平台/配置决定
 * text=auto
 
 # 明确声明文本文件，强制在仓库中存储为 LF
@@ -74,9 +75,9 @@ Git 默认尝试对所有文件进行文本差异比较。对于图像或编译�
     ```properties
     *.docx diff=word
     ```
-2.  在 `.git/config` (或全局配置) 中配置转换器：
+2.  在 `.git/config` (或全局配置) 中配置转换器（注意：需要预先安装 pandoc）：
     ```bash
-    git config diff.word.textconv pandoc --to=markdown
+    git config diff.word.textconv "pandoc --to=markdown"
     ```
 
 现在运行 `git diff` 时，Git 会先通过 `pandoc` 将 docx 转换为 Markdown 再显示差异。

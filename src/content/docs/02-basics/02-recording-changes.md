@@ -25,7 +25,7 @@ graph LR
     Unmodified((未修改)) -- 编辑文件 --> Modified((已修改))
     Modified -- "git add" --> Staged((已暂存))
     Staged -- "git commit" --> Unmodified
-    Unmodified -- "git rm" --> Untracked((移除))
+    Unmodified -- "git rm" --> StagedDel((已暂存删除))
 
     %% 定义适配亮/暗模式的样式类
     classDef untrackedNode fill:#718096,stroke:#4a5568,color:#fff,stroke-width:2px
@@ -57,10 +57,10 @@ graph LR
     :::
 
     :::tip[关于移除文件]
-    使用 `git rm <file>` 会将文件从 Git 中移除并**删除物理文件**。
+    使用 `git rm <file>` 会将文件从 Git 中移除并**删除物理文件**。删除操作会自动进入暂存区（`git status` 显示 `deleted:` 且位于 `Changes to be committed`），提交后该文件即从版本库中移除。
     如果你想从 Git 中移除但**保留物理文件**（比如误提交了配置文件），请使用：
     `git rm --cached <file>`
-    此时文件会变成 **Untracked** 状态。
+    执行后你会同时看到 `deleted:`（已暂存的删除）和 `??`（未跟踪副本），提交后文件才会稳定为 **Untracked** 状态。
     :::
 
     或者用**照相**来比喻：

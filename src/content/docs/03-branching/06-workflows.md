@@ -69,6 +69,9 @@ gitGraph
     ```bash
     git commit -am "fix: resolved issue 53 logic error"
     ```
+    :::caution[关于 -am 参数]
+    `-a` 只会暂存**已跟踪文件**的修改，不会自动添加新文件。如果你创建了新文件，仍需先执行 `git add <新文件>` 将其纳入版本控制。
+    :::
 4.  **合并成果**：测试通过后，你将 `iss53` 的成果合并回 `main` 分支。
     ```bash
     git checkout main

@@ -56,9 +56,26 @@ git config --global alias.cp cherry-pick
 
 Git 默认的 `git log` 输出信息量较少且不易读。我们可以配置一个极其强大的 `lg` 别名，显示提交图谱、哈希值、时间、作者和提交信息。
 
+:::caution[跨 Shell 兼容性]
+在不同的 Shell 环境（Git Bash、zsh、PowerShell、cmd.exe）中，命令行设置别名时的引号处理可能不一致。**推荐直接编辑 `~/.gitconfig` 文件**，使用 INI 格式，这是最稳定可靠的方式。
+:::
+
+**推荐方式：直接在 `~/.gitconfig` 中添加**
+
+```ini
+[alias]
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+```
+
+**命令行方式（Git Bash / Linux / macOS）**
+
 ```bash
 git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
 ```
+
+:::note
+如果你使用 Windows PowerShell 或 cmd.exe，命令行的引号转义会非常复杂，建议直接编辑配置文件。
+:::
 
 **效果对比：**
 
@@ -73,6 +90,12 @@ git config --global alias.unstage "reset HEAD --"
 ```
 
 用法：`git unstage file.txt`
+
+:::note[这不是回退提交！]
+这里使用的是 `git reset` 的**路径形式**（`reset HEAD -- <path>`），它只会将指定文件从暂存区移除，**不会移动 HEAD 指针或改变提交历史**。如果你想了解 `reset` 的完整语义，请参阅 [Reset 揭秘](/05-advanced/06-reset-demystified/)。
+
+**现代替代方案**：Git 2.23+ 引入了更语义化的命令 `git restore --staged <file>`，功能相同但更易理解。
+:::
 
 ### 查看最后一次提交 (`git last`)
 

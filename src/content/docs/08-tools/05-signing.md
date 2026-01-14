@@ -5,7 +5,7 @@ description: "配置 GPG 密钥签署提交，获得 GitHub Verified 认证徽�
 
 在开源世界或高安全要求的企业环境中，证明“你是你”非常重要。默认情况下，任何人都可以设置 `user.name` 为 "Linus Torvalds" 并提交代码。Git 签名（GPG Signing）通过加密技术解决了身份冒充问题。
 
-当你在 GitHub 上看到绿色的 **Verified** 徽章时，就意味着该提交已通过 GPG 密钥签名验证。
+当你在 GitHub 上看到绿色的 **Verified** 徽章时，意味着该提交或标签的签名已通过平台验证。签名类型可能是 GPG、SSH、S/MIME 或 GitHub 自身的 Web 签名。
 
 ## 准备工作
 
@@ -105,3 +105,41 @@ GPG 密钥是私有的，如果你忘记了密码且没有备份撤销证书，�
 ## 总结
 
 GPG 签名虽然配置稍显繁琐，但它是供应链安全的重要一环。它能确保代码确实出自其声称的作者之手，且未在传输过程中被篡改。
+
+## SSH 签名（替代方案）
+
+从 Git 2.34 开始，你可以使用已有的 SSH 密钥进行签名，无需额外配置 GPG。对于已经在使用 SSH 密钥进行身份验证的开发者来说，这是一个更简便的选择。
+
+### 配置 SSH 签名
+
+1.  **设置签名格式为 SSH**：
+    ```bash
+    git config --global gpg.format ssh
+    ```
+
+2.  **指定用于签名的 SSH 密钥**：
+    ```bash
+    git config --global user.signingkey ~/.ssh/id_ed25519.pub
+    ```
+
+3.  **开启自动签名**（与 GPG 相同）：
+    ```bash
+    git config --global commit.gpgsign true
+    ```
+
+### 验证 SSH 签名
+
+要在本地验证 SSH 签名，需要配置一个"允许的签名者"文件：
+
+```bash
+git config --global gpg.ssh.allowedSignersFile ~/.ssh/allowed_signers
+```
+
+该文件格式为每行一个条目：`邮箱 密钥类型 公钥内容`，例如：
+```plaintext
+user@example.com ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI...
+```
+
+### 关联 GitHub
+
+GitHub 同样支持 SSH 签名验证。将你的 SSH 公钥添加到 GitHub 时，选择 **Signing Key** 类型即可（与 Authentication Key 分开管理）。

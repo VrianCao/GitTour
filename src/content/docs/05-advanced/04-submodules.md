@@ -85,6 +85,19 @@ git status
     git submodule update --remote
     ```
 
+:::note[关于 `--remote` 的行为]
+`git submodule update --remote` 会将子模块更新到其**配置的跟踪分支**的最新提交。默认跟踪的是子模块仓库的默认分支（通常是 `main` 或 `master`）。
+
+如果需要指定跟踪其他分支，可以在 `.gitmodules` 中配置：
+```ini
+[submodule "third-party/utils"]
+    path = third-party/utils
+    url = https://github.com/example/utils.git
+    branch = develop
+```
+或使用命令：`git config -f .gitmodules submodule.third-party/utils.branch develop`
+:::
+
 更新完成后，记得在父仓库提交这次变更：
 
 ```bash
@@ -108,27 +121,28 @@ git commit -m "chore: update utils submodule to latest version"
 在旧版 Git 中删除子模块非常繁琐。在现代 Git 版本中，步骤已简化，但仍需小心：
 
 ```bash
-# 1. 卸载子模块
-git submodule deinit third-party/utils
+# 1. 卸载子模块（Git 1.8.3+，加 -f 可强制卸载有本地修改的子模块）
+git submodule deinit -f -- third-party/utils
 
 # 2. 从 git 索引和 .gitmodules 中移除
-git rm third-party/utils
+git rm -f third-party/utils
+```
 
-import { Tabs, TabItem } from '@astrojs/starlight/components';
+3. 删除残留的 `.git/modules` 目录（可选，为了彻底清理）：
 
-# 3. 删除残留的 .git/modules 目录（可选，为了彻底清理）
-<Tabs>
-  <TabItem label="Bash (Mac/Linux/Git Bash)">
-    ```bash
-    rm -rf .git/modules/third-party/utils
-    ```
-  </TabItem>
-  <TabItem label="PowerShell (Windows)">
-    ```powershell
-    Remove-Item -Recurse -Force .git/modules/third-party/utils
-    ```
-  </TabItem>
-</Tabs>
+**Bash (Mac/Linux/Git Bash)**：
+```bash
+rm -rf .git/modules/third-party/utils
+```
+
+**PowerShell (Windows)**：
+```powershell
+Remove-Item -Recurse -Force .git/modules/third-party/utils
+```
+
+最后，提交这次删除操作：
+```bash
+git commit -m "chore: remove utils submodule"
 ```
 
 ## 5. 总结

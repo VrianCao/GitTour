@@ -55,8 +55,8 @@ doc/*
 ```
 
 :::caution[常见陷阱]
-**如果父目录被忽略了，你无法重新包含其中的文件。**
-Git 出于性能考虑，一旦忽略了某个目录，就不会再遍历该目录下的内容。
+**如果父目录被忽略了，默认情况下你无法重新包含其中的文件。**
+Git 出于性能考虑，一旦忽略了某个目录，就不会再遍历该目录下的内容。但通过正确的规则顺序，你可以实现精细控制。
 
 **错误示例**：
 ```plaintext
@@ -68,6 +68,18 @@ logs/
 ```plaintext
 logs/*               <-- 忽略 logs 下的所有内容（而不是 logs 目录本身）
 !logs/important.log  <-- 有效，因为 logs 目录本身还在被扫描
+```
+
+**多层嵌套的正确模板**（顺序很关键）：
+```plaintext
+# 忽略 build 目录下的所有内容
+build/*
+# 但保留 build/keep 目录
+!build/keep/
+# 忽略 build/keep 下的所有内容
+build/keep/*
+# 但保留其中的 .gitkeep 文件
+!build/keep/.gitkeep
 ```
 :::
 

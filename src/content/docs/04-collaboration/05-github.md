@@ -67,10 +67,16 @@ git push -u origin fix-typo
 一旦维护者满意，点击合并，你的代码就正式成为了项目的一部分！
 
 :::note[同步上游代码]
-在贡献过程中，原仓库可能已经更新了。为了保持同步，你需要添加原仓库为额外的远程地址（通常命名为 `upstream`），并定期抓取合并：
+在贡献过程中，原仓库可能已经更新了。为了保持同步，你需要添加原仓库为额外的远程地址（通常命名为 `upstream`），并定期抓取合并。
+
+**重要**：以下示例以 `main` 为默认分支名。实际操作时，请以目标仓库的默认分支为准（可能是 `master` 或其他名称）。
+
 ```bash
 git remote add upstream https://github.com/vuejs/core.git
 git fetch upstream
+
+# 确保切换到你 fork 的主分支后再合并
+git switch main
 git merge upstream/main
 ```
 :::

@@ -49,7 +49,7 @@ brew install git
 ```bash
 xcode-select --install
 ```
-系统会弹出一个对话框，点击“安装”即可。注意：这种方式安装的 Git 版本通常比官方最新版稍旧。
+系统会弹出一个对话框，点击"安装"即可。注意：这种方式安装的 Git 版本通常比官方最新版稍旧。
 
 ### 方法三：官方安装包
 你也可以从 [Git 官网](https://git-scm.com/download/mac) 下载 `.dmg` 安装包，双击按照提示安装。
@@ -88,14 +88,16 @@ Windows 用户面临的配置选项最多，初学者容易在安装向导中感
 *   *配置项*: `core.autocrlf = true`
 *   *说明*: 
     *   Windows 使用 `CRLF`（回车换行），Linux/Mac 使用 `LF`（换行）。
-    *   此选项会在你检出代码时自动转为 CRLF（适配 Windows 编辑器），提交时自动转为 LF（适配仓库标准）。这能有效避免跨平台协作时的“换行符地狱”。
+    *   此选项会在你检出代码时自动转为 CRLF（适配 Windows 编辑器），提交时自动转为 LF（适配仓库标准）。这能有效避免跨平台协作时的"换行符地狱"。
+    *   **注意**：如果项目已有 `.gitattributes` 文件定义了换行规则，请优先遵循项目/团队约定。
 
 #### 步骤 F: 选择终端模拟器 (Configuring the terminal emulator to use with Git Bash)
 *   **建议**: 选择 **"Use MinTTY (the default terminal of MSYS2)"**。
 *   *说明*: MinTTY 支持调整窗口大小、复制粘贴更方便，体验优于 Windows 默认的控制台窗口 (cmd.exe)。
 
 #### 步骤 G: 额外配置 (Configuring extra options)
-*   **建议**: 勾选 "Enable file system caching" 和 "Enable Git Credential Manager" (凭证管理器，重要，免去每次输入密码的烦恼)。
+*   **建议**: 勾选 "Enable file system caching" 和 "Enable Git Credential Manager"（凭证管理器，可安全保存和刷新访问凭据）。
+    *   **注意**：GitHub 等平台已不再接受账号密码进行 HTTPS 推送，GCM 会帮你管理 Personal Access Token 或设备授权。
 
 ---
 

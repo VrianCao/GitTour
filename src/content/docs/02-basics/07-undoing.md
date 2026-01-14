@@ -47,7 +47,11 @@ git commit --amend --no-edit
 
 ## 取消暂存的文件 (Unstaging)
 
-假设你修改了两个文件：`README.md` 和 `config.json`。你原本只想提交 `README.md`，却习惯性地运行了 `git add *`，把两个文件都放进了暂存区。
+假设你修改了两个文件：`README.md` 和 `config.json`。你原本只想提交 `README.md`，却习惯性地运行了 `git add .`，把两个文件都放进了暂存区。
+
+:::caution[避免使用 `git add *`]
+不要使用 `git add *` 依赖 shell 通配符——它在不同 shell（PowerShell、CMD、Bash）行为不一致，还会漏掉点文件（如 `.gitignore`）。请使用 `git add .` 或显式指定文件名。
+:::
 
 如何把 `config.json` 从暂存区里拿出来，但保留它在工作区的修改呢？
 
@@ -71,6 +75,10 @@ git reset HEAD config.json
 ```
 
 这两个命令的效果是一样的，但 `restore --staged` 更容易记忆和理解。
+
+:::note[新仓库尚无提交时]
+如果仓库还没有任何提交（unborn HEAD），`git restore --staged` 和 `git reset HEAD` 可能会报错。此时可用 `git rm --cached <file>` 来取消暂存新文件。
+:::
 
 ---
 

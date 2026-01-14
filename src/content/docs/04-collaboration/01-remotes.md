@@ -8,7 +8,12 @@ title: "远程仓库的使用"
 
 远程仓库是托管在网络或其他位置的你的项目版本。它可以是你同事的电脑，也可以是像 GitHub、GitLab 或 Gitee 这样的托管服务。
 
-在 Git 中，"远程" (Remote) 实际上只是一个指向远程位置的**别名**或**指针**。
+在 Git 中，"远程" (Remote) 是一个**命名配置**，它存储了远程仓库的 URL 以及推拉规则。例如 `origin` 就是一个远程的名称。
+
+:::note[区分 Remote 与远程跟踪分支]
+- **Remote（远程）**：如 `origin`、`upstream`，是指向远程仓库 URL 的配置项。
+- **远程跟踪分支（Remote-tracking Branch）**：如 `origin/main`，是存储在本地的引用（`refs/remotes/origin/main`），它是远程分支的本地快照。这个引用由 `git fetch` 或 `git pull` 更新，并**不是**远端服务器上的"活分支"——远端的实际状态可能随时变化，只有执行 fetch 才会同步到本地。
+:::
 
 ```mermaid
 graph LR
@@ -45,6 +50,14 @@ origin  https://github.com/user/repo.git (push)
 
 :::note[什么是 origin?]
 你经常会看到 `origin` 这个词。它并没有什么魔法，只是 Git 给克隆来源的默认名称。就像 `master` 或 `main` 是默认分支名一样，`origin` 是默认的远程仓库名。你可以把它改成 `backup`、`upstream` 或任何你喜欢的名字，但保留 `origin` 是约定俗成的习惯。
+:::
+
+:::caution[避免混淆：upstream 的两种含义]
+在 Git 中，"upstream" 一词有两种常见含义：
+1. **作为远程名**：在 Fork 工作流中，通常把原始仓库命名为 `upstream`（与你自己的 `origin` 区分）。
+2. **作为上游分支（Tracking Branch）**：指本地分支所跟踪的远程分支，例如 `main` 的上游可能是 `origin/main`。
+
+当看到 "upstream" 时，请根据上下文判断具体含义。
 :::
 
 ## 添加远程仓库

@@ -19,20 +19,38 @@ git fetch origin
 
 ## Git Pull (拉取)
 
-`git pull` 是一个**便捷**命令，它实际上是两个命令的组合：
+`git pull` 是一个**便捷**命令，它实际上是两个命令的组合。
+
+默认情况下（未配置时）：
 
 $$
 \text{git pull} = \text{git fetch} + \text{git merge}
 $$
 
+但这不是绝对的！`git pull` 的行为可通过配置或参数改变：
+
+- `git pull --rebase`：使用 `rebase` 而非 `merge`，保持线性历史。
+- `git pull --ff-only`：仅在可以快进合并时执行，否则中止。
+- 配置 `pull.rebase=true`：使 `git pull` 默认使用 `rebase`。
+
 当你运行 `git pull` 时，Git 会：
 1. 自动从远程下载数据 (`fetch`)。
-2. 尝试将远程分支的更改**合并** (`merge`) 到你当前所在的本地分支。
+2. 尝试将远程分支的更改**整合**到你当前所在的本地分支（默认使用 `merge`）。
 
 ```bash
 # 拉取并合并远程 main 分支到当前分支
 git pull origin main
 ```
+
+:::caution[注意当前分支！]
+上述命令会将远程 `main` 分支合并到**你当前所在的分支**，而不一定是本地的 `main`。如果你当前在 `feature` 分支上执行此命令，远程 `main` 的提交会被合并进 `feature`——这可能不是你想要的结果。
+
+**推荐做法**：先切换到目标分支，再执行 pull：
+```bash
+git switch main
+git pull origin main
+```
+:::
 
 :::note[使用建议]
 对于初学者，`git pull` 非常方便。但随着经验增长，许多开发者更喜欢先 `git fetch` 检查变动，确信无误后再手动 `git merge`，以此避免意外的合并冲突打断工作流。

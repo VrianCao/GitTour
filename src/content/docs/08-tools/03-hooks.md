@@ -43,7 +43,7 @@ fi
 **SysAdmin 场景**：强制使用 Conventional Commits 格式（如 `feat:`, `fix:`）。
 
 ```bash
-#!/bin/sh
+#!/usr/bin/env bash
 INPUT_FILE=$1
 START_LINE=$(head -n1 $INPUT_FILE)
 PATTERN="^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?: .+"
@@ -114,4 +114,10 @@ git commit -m "..." -n
 
 :::caution[警告]
 不要滥用 `--no-verify`。它应该只用于本地临时保存，绝不应推送到共享分支。
+:::
+
+:::caution[客户端钩子的局限性]
+**客户端钩子不随仓库分发**：`.git/hooks/` 目录不会被 `git clone` 复制，因此无法强制所有协作者使用相同的钩子。这也是 Husky 等工具存在的原因——它们将钩子配置纳入版本控制。
+
+**可被绕过**：任何开发者都可以使用 `--no-verify` 跳过客户端钩子，或者直接删除/修改本地的钩子脚本。因此，**不要依赖客户端钩子作为唯一的安全防线**。关键的代码质量检查应该在 CI/CD 流水线或服务端钩子中强制执行。
 :::

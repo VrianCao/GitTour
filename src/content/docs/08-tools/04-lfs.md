@@ -3,7 +3,7 @@ title: "Git LFS 大文件存储"
 description: "使用 Git Large File Storage (LFS) 高效管理音频、视频和数据集"
 ---
 
-Git 在处理文本文件时表现出色，但在处理大型二进制文件（如 PSD、视频、数据集）时却非常低效。这是因为 Git 会保存文件的每个版本的完整副本，导致仓库体积迅速膨胀，克隆速度变慢。
+Git 在处理文本文件时表现出色，但在处理大型二进制文件（如 PSD、视频、数据集）时却非常低效。这是因为二进制文件的 delta 压缩效果很差，且无法进行有意义的差异对比，导致仓库体积迅速膨胀，克隆速度变慢。
 
 **Git LFS (Large File Storage)** 通过将大文件替换为轻量级的“指针”文件来解决这个问题，而实际的大文件内容则存储在远程服务器上。
 
@@ -18,9 +18,10 @@ Git 在处理文本文件时表现出色，但在处理大型二进制文件（�
 
 ### 1. 安装 LFS
 
-你需要先在机器上安装 LFS 扩展。
+你需要先在机器上安装 LFS 客户端，然后运行初始化命令注册 Git 过滤器和钩子。
 
 **Windows:**
+首先从 [git-lfs.com](https://git-lfs.com) 下载并安装 Git LFS 客户端（或通过 `winget install GitHub.GitLFS`），然后运行：
 ```bash
 git lfs install
 ```
@@ -31,7 +32,7 @@ brew install git-lfs
 git lfs install
 ```
 
-*注意：`git lfs install` 只需要运行一次，它会配置全局的 Git 过滤器。*
+*注意：`git lfs install` 是注册过滤器和钩子的命令，不是安装软件本身。它只需要运行一次，会配置全局的 Git 过滤器。*
 
 ### 2. 跟踪文件
 

@@ -29,7 +29,7 @@ git stash
 git stash push -m "正在开发用户登录功能，暂停修Bug"
 ```
 
-执行后，你的工作目录会变得干净（clean），`git status` 将显示没有需要提交的变更。
+执行后，**被追踪文件**的修改会被储藏，工作目录中这部分变得干净。但需要注意：**默认情况下，`git stash` 不会储藏未追踪文件（untracked files）和被忽略的文件**，它们仍会留在工作区。如果你需要储藏所有内容，请参阅下方"进阶技巧"章节。
 
 ### 查看储藏列表
 
@@ -79,6 +79,10 @@ git stash pop
 
 如果你决定不再需要某次储藏的内容，可以手动删除它：
 
+:::danger[不可逆操作]
+`git stash drop` 和 `git stash clear` 是**不可逆操作**！一旦删除，储藏的内容通常无法找回（不像 commit 可以通过 reflog 恢复）。执行前请确保你不再需要这些内容。
+:::
+
 ```bash
 # 删除最近一次
 git stash drop
@@ -103,6 +107,22 @@ git stash -u
 # 或者
 git stash --include-untracked
 ```
+
+如果你甚至需要储藏被 `.gitignore` 忽略的文件（如构建产物、临时缓存），使用：
+
+```bash
+git stash -a
+# 或者
+git stash --all
+```
+
+:::tip[区别总结]
+| 命令 | 被追踪文件 | 未追踪文件 | 被忽略文件 |
+| :--- | :---: | :---: | :---: |
+| `git stash` | ✅ | ❌ | ❌ |
+| `git stash -u` | ✅ | ✅ | ❌ |
+| `git stash -a` | ✅ | ✅ | ✅ |
+:::
 
 ### 储藏特定文件
 
