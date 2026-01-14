@@ -9,7 +9,7 @@ export default defineConfig({
 		starlight({
 			title: 'GitTour',
 			description: '全网最全面的中文 Git 教程，从入门到专家一路打通。',
-			logo: { src: './src/assets/git.svg', alt: 'GitTour' },
+			logo: { src: './src/assets/gittour-logo.svg', alt: 'GitTour' },
 			locales: {
 				root: {
 					label: '简体中文',

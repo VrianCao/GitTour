@@ -1,12 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
   <defs>
-    <!-- 经典 Git 橙红渐变：通过深浅跨度增加体积感 -->
     <linearGradient id="gitGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#F05033" /> <!-- Git Orange -->
-      <stop offset="100%" stop-color="#D63D22" /> <!-- Deep Crimson -->
+      <stop offset="0%" stop-color="#F05033" />
+      <stop offset="100%" stop-color="#D63D22" />
     </linearGradient>
-
-    <!-- 现代内发光：模拟高级磨砂质感 -->
     <filter id="premiumRefraction" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="2" result="blur"/>
       <feOffset dx="0" dy="2" result="offsetBlur"/>
@@ -18,34 +15,24 @@
         <feMergeNode in="coloredInnerShadow"/>
       </feMerge>
     </filter>
-
-    <!-- 核心节点发光 -->
     <filter id="nodeGlow" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="12" result="blur"/>
       <feComposite in="SourceGraphic" in2="blur" operator="over"/>
     </filter>
   </defs>
-
-  <!-- 核心轨道 (Geometric G) -->
   <path d="M160 352C160 387.346 188.654 416 224 416H288C358.692 416 416 358.692 416 288V224C416 153.308 358.692 96 288 96H224C153.308 96 96 153.308 96 224V288C96 323.346 124.654 352 160 352Z" 
         stroke="url(#gitGradient)" 
         stroke-width="52" 
         stroke-linecap="round" 
         stroke-linejoin="round"
         filter="url(#premiumRefraction)" />
-
-  <!-- 内部横梁 -->
   <path d="M256 256H416" 
         stroke="url(#gitGradient)" 
         stroke-width="52" 
         stroke-linecap="round" />
-
-  <!-- 核心 Commit 节点 -->
   <circle cx="256" cy="256" r="32" fill="#FFFFFF" filter="url(#nodeGlow)">
     <animate attributeName="opacity" values="0.7;1;0.7" dur="3s" repeatCount="indefinite" />
   </circle>
-
-  <!-- 装饰元素 -->
   <circle cx="416" cy="120" r="10" fill="#F05033" opacity="0.6" />
   <circle cx="96" cy="392" r="14" fill="#D63D22" opacity="0.4" />
 </svg>

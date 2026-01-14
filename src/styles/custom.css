@@ -123,25 +123,36 @@
 	flex-direction: row-reverse;
 }
 
-/* Hero Image/Logo Animation */
+/* LOGO 现代感增强 - 回归经典橙色系 */
 [data-has-hero] .hero img {
 	position: relative;
 	filter: 
-		drop-shadow(0 0 20px rgba(240, 80, 51, 0.4))
-		drop-shadow(0 0 40px rgba(240, 80, 51, 0.2))
-		drop-shadow(0 8px 16px rgba(0, 0, 0, 0.3));
-	animation: logo-float 5s ease-in-out infinite;
-	transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+		drop-shadow(0 0 30px rgba(240, 80, 51, 0.35))
+		drop-shadow(0 0 60px rgba(240, 80, 51, 0.15))
+		drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4));
+	animation: logo-float 6s ease-in-out infinite;
+	transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 	z-index: 1;
 }
 
 [data-has-hero] .hero img:hover {
-	transform: scale(1.08) translateY(-5px);
+	transform: scale(1.05) translateY(-10px) rotate(2deg);
 	filter: 
-		drop-shadow(0 0 30px rgba(240, 80, 51, 0.6))
-		drop-shadow(0 0 60px rgba(240, 80, 51, 0.3))
-		drop-shadow(0 12px 24px rgba(0, 0, 0, 0.4));
+		drop-shadow(0 0 40px rgba(240, 80, 51, 0.5))
+		drop-shadow(0 0 80px rgba(240, 80, 51, 0.25))
+		drop-shadow(0 30px 60px rgba(0, 0, 0, 0.5));
 }
+
+/* 导航栏 LOGO 优化 */
+.site-title img {
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    transition: transform 0.3s ease;
+}
+
+.site-title:hover img {
+    transform: rotate(-5deg) scale(1.1);
+}
+
 
 @keyframes logo-float {
 	0%, 100% { 
