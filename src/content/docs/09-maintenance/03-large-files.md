@@ -22,7 +22,7 @@ description: "彻底清洗 Git 历史记录，移除误传的大文件或敏感�
 
 ### 1. BFG Repo-Cleaner (推荐入门)
 
-BFG 是一个基于 Java 的工具，比 `filter-branch` 快 10-720 倍，且使用更简单。
+BFG 是一个基于 Java 的工具，比 `filter-branch` 快 10-50 倍（在某些场景下可能更快），且使用更简单。
 
 **安装**：
 需先安装 Java，然后下载 jar 包或通过包管理器：

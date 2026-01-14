@@ -66,7 +66,7 @@ git log --pretty=oneline
 ```
 这会将每个提交压缩成一行，只保留完整的哈希值和提交信息。
 
-或者使用更简短的 `--oneline`（哈希值通常约 7 位，具体长度取决于唯一性需求与 `core.abbrev` 配置）：
+或者使用更简短的 `--oneline`（哈希值默认显示 7 位，可通过 `core.abbrev` 配置调整）：
 ```bash
 git log --oneline
 ```

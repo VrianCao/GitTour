@@ -52,7 +52,7 @@ Gitflow 使用两个长期存在的分支来记录项目的历史：
 *   **生命周期**：
     1. 生产环境出问题，直接从 `master` 切出修复。
     2. 修复后，合并回 `master`（打 Tag）和 `develop`。
-    3. *注意：若当前有正在准备的 `release/*` 分支，需确保 hotfix 进入该 release；随后也要确保修复最终进入 `develop`。*
+    3. *注意：若当前有正在准备的 `release/*` 分支，hotfix 应合并到 `release/*` 分支（而非直接合并到 `develop`），因为 release 分支最终会合并回 `develop`，从而确保修复进入所有分支。*
 
 ## 工作流可视化
 

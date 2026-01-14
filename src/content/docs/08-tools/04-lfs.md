@@ -32,7 +32,7 @@ brew install git-lfs
 git lfs install
 ```
 
-*注意：`git lfs install` 是注册过滤器和钩子的命令，不是安装软件本身。它只需要运行一次，会配置全局的 Git 过滤器。*
+*注意：`git lfs install` 会在你的 Git 全局配置中注册 LFS 过滤器和钩子，不是安装软件本身。这个命令在每台机器上只需运行一次（每个用户账户），之后所有仓库都可以使用 LFS。*
 
 ### 2. 跟踪文件
 

@@ -99,7 +99,7 @@ Stash 的创建和丢弃本质上也是对象操作。Stash 有自己的 reflog�
 
 如果连 `git reflog` 都帮不了你（比如你删除了 `.git` 目录...好吧那就真没了），或者文件没有被提交就被删除了。
 
--   **已添加到暂存区但未提交**：Git 已经为其创建了 Blob 对象。通过 `git fsck --lost-found` 可以找回文件内容，但文件名丢失。
+-   **已添加到暂存区但未提交**：Git 已经为其创建了 Blob 对象。通过 `git fsck --lost-found` 可以找到这些悬空的 blob 对象（会被复制到 `.git/lost-found/other/` 目录），但文件名信息已丢失，需要用 `git show <blob-hash>` 查看内容来识别。
 -   **从未 `git add` 过**：Git 无能为力。请咨询专业的数据恢复公司或检查你的 IDE 本地历史记录（VS Code, IntelliJ 都有 Local History 功能）。
 
 ## 总结
