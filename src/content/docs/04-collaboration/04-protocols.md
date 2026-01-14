@@ -1,5 +1,6 @@
 ---
 title: "Git 协议 (HTTPs/SSH)"
+description: "对比 Git 的两种主要连接协议：HTTPS 简单易用适合初学者，SSH 安全高效适合进阶用户。包含完整的 SSH 密钥配置步骤指南。"
 ---
 
 在连接远程仓库（如 GitHub、GitLab）时，你主要会遇到两种协议：**HTTPS** 和 **SSH**。了解它们的区别并配置适合你的方式，能让日常开发更顺滑。

@@ -1,5 +1,6 @@
 ---
 title: "GitHub 基础与 Pull Request"
+description: "掌握 GitHub 开源协作的核心流程：理解 Fork、Clone 和 Pull Request 的概念，学习标准的开源贡献工作流，从 Fork 项目到提交 PR 的完整步骤。"
 ---
 
 虽然 Git 是一个工具，但 GitHub（以及 GitLab, Bitbucket）是基于 Git 的**社交编程平台**。它引入了 "Fork" 和 "Pull Request" 的概念，彻底改变了开源软件的协作方式。
