@@ -1,47 +1,106 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
   <defs>
-    <!-- 连线的线性渐变 -->
+    <!-- 核心发光滤镜 -->
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8" result="blur1"/>
+      <feGaussianBlur stdDeviation="16" result="blur2"/>
+      <feGaussianBlur stdDeviation="32" result="blur3"/>
+      <feMerge>
+        <feMergeNode in="blur3"/>
+        <feMergeNode in="blur2"/>
+        <feMergeNode in="blur1"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    
+    <!-- 节点内发光滤镜 -->
+    <filter id="nodeGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="blur" in2="SourceGraphic" operator="over"/>
+    </filter>
+    
+    <!-- 柔和阴影滤镜 -->
+    <filter id="softShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="4" stdDeviation="8" flood-color="#000" flood-opacity="0.3"/>
+    </filter>
+
+    <!-- 连线渐变 - 更丰富的色彩过渡 -->
     <linearGradient id="lineGradient" x1="160" y1="400" x2="352" y2="112" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#e64a19" />
-      <stop offset="50%" stop-color="#f05033" />
-      <stop offset="100%" stop-color="#ff7043" />
+      <stop offset="0%" stop-color="#de3700"/>
+      <stop offset="35%" stop-color="#f05033"/>
+      <stop offset="65%" stop-color="#f56a4d"/>
+      <stop offset="100%" stop-color="#ff8a70"/>
     </linearGradient>
     
-    <!-- 球体的径向渐变 (模拟3D高光) -->
-    <radialGradient id="sphereGradient" cx="35%" cy="35%" r="65%">
-      <stop offset="0%" stop-color="#ffccbc" /> <!-- 高光 -->
-      <stop offset="40%" stop-color="#f05033" /> <!-- 本色 -->
-      <stop offset="100%" stop-color="#b71c1c" /> <!-- 阴影 -->
+    <!-- 节点填充渐变 - 现代扁平风格 -->
+    <linearGradient id="nodeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff6b4a"/>
+      <stop offset="50%" stop-color="#f05033"/>
+      <stop offset="100%" stop-color="#d63d22"/>
+    </linearGradient>
+    
+    <!-- 节点高光渐变 -->
+    <linearGradient id="highlightGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.4)"/>
+      <stop offset="50%" stop-color="rgba(255,255,255,0.1)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+    
+    <!-- 外发光渐变 -->
+    <radialGradient id="outerGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f05033" stop-opacity="0.6"/>
+      <stop offset="60%" stop-color="#f05033" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#f05033" stop-opacity="0"/>
     </radialGradient>
+
+    <!-- 节点剪切蒙版 -->
+    <clipPath id="nodeClip1"><circle cx="160" cy="400" r="44"/></clipPath>
+    <clipPath id="nodeClip2"><circle cx="160" cy="256" r="44"/></clipPath>
+    <clipPath id="nodeClip3"><circle cx="160" cy="112" r="44"/></clipPath>
+    <clipPath id="nodeClip4"><circle cx="352" cy="160" r="44"/></clipPath>
   </defs>
 
-  <!-- 阴影层 (模拟投影，确保在暗色背景下有立体感) -->
-  <g opacity="0.3" transform="translate(8, 8)">
-    <path d="M160 112 V 400" stroke="#000" stroke-width="28" stroke-linecap="round" />
-    <path d="M160 256 C 160 190, 260 160, 352 160" stroke="#000" stroke-width="28" stroke-linecap="round" fill="none" />
-    <circle cx="160" cy="400" r="48" fill="#000" />
-    <circle cx="160" cy="256" r="48" fill="#000" />
-    <circle cx="160" cy="112" r="48" fill="#000" />
-    <circle cx="352" cy="160" r="48" fill="#000" />
+  <!-- 背景发光层 -->
+  <g opacity="0.5" filter="url(#glow)">
+    <circle cx="160" cy="400" r="60" fill="url(#outerGlow)"/>
+    <circle cx="160" cy="256" r="60" fill="url(#outerGlow)"/>
+    <circle cx="160" cy="112" r="60" fill="url(#outerGlow)"/>
+    <circle cx="352" cy="160" r="60" fill="url(#outerGlow)"/>
   </g>
 
-  <!-- 连线层 -->
-  <g stroke="url(#lineGradient)" stroke-width="28" stroke-linecap="round">
-    <!-- 主干: 从下往上 -->
-    <path d="M160 112 V 400" />
-    <!-- 分支: 从中间向右上方平滑弯曲 -->
-    <path d="M160 256 C 160 190, 260 160, 352 160" fill="none" />
+  <!-- 主体组 - 带柔和阴影 -->
+  <g filter="url(#softShadow)">
+    <!-- 连线层 -->
+    <g stroke="url(#lineGradient)" stroke-width="24" stroke-linecap="round" fill="none">
+      <path d="M160 112 V 400"/>
+      <path d="M160 256 C 160 195, 255 160, 352 160"/>
+    </g>
+
+    <!-- 节点层 -->
+    <g>
+      <!-- 节点1 - 底部 -->
+      <circle cx="160" cy="400" r="44" fill="url(#nodeGradient)"/>
+      <ellipse cx="160" cy="380" rx="30" ry="20" fill="url(#highlightGradient)" clip-path="url(#nodeClip1)"/>
+      
+      <!-- 节点2 - 中间 -->
+      <circle cx="160" cy="256" r="44" fill="url(#nodeGradient)"/>
+      <ellipse cx="160" cy="236" rx="30" ry="20" fill="url(#highlightGradient)" clip-path="url(#nodeClip2)"/>
+      
+      <!-- 节点3 - 顶部 -->
+      <circle cx="160" cy="112" r="44" fill="url(#nodeGradient)"/>
+      <ellipse cx="160" cy="92" rx="30" ry="20" fill="url(#highlightGradient)" clip-path="url(#nodeClip3)"/>
+      
+      <!-- 节点4 - 分支 -->
+      <circle cx="352" cy="160" r="44" fill="url(#nodeGradient)"/>
+      <ellipse cx="352" cy="140" rx="30" ry="20" fill="url(#highlightGradient)" clip-path="url(#nodeClip4)"/>
+    </g>
   </g>
 
-  <!-- 节点层 (球体) -->
-  <g fill="url(#sphereGradient)">
-    <!-- 底部节点 -->
-    <circle cx="160" cy="400" r="48" />
-    <!-- 中间分叉节点 -->
-    <circle cx="160" cy="256" r="48" />
-    <!-- 主干顶部节点 -->
-    <circle cx="160" cy="112" r="48" />
-    <!-- 分支顶部节点 -->
-    <circle cx="352" cy="160" r="48" />
+  <!-- 顶层光点装饰 -->
+  <g>
+    <circle cx="148" cy="100" r="6" fill="rgba(255,255,255,0.7)"/>
+    <circle cx="148" cy="244" r="6" fill="rgba(255,255,255,0.7)"/>
+    <circle cx="148" cy="388" r="6" fill="rgba(255,255,255,0.7)"/>
+    <circle cx="340" cy="148" r="6" fill="rgba(255,255,255,0.7)"/>
   </g>
 </svg>
