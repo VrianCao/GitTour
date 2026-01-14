@@ -1,14 +1,158 @@
 :root {
-	/* Git brand-inspired accent colors */
-	--sl-color-accent-low: #2a0d08;
+	/* Git brand-inspired accent colors - Refined for Modern Look */
+	--sl-color-accent-low: #1c0805;
 	--sl-color-accent: #f05033;
-	--sl-color-accent-high: #ffd2c9;
+	--sl-color-accent-high: #ffdec9;
+	
+	/* Background gradients for premium feel */
+	--sl-color-bg-nav: #0f1117;
+	--sl-color-bg-sidebar: #0f1117;
+	--sl-color-bg: #0b0d11;
 }
 
 :root[data-theme='light'] {
-	--sl-color-accent-high: #a73422;
+	--sl-color-accent-high: #9e2a1b;
 	--sl-color-accent: #f05033;
-	--sl-color-accent-low: #ffe6e1;
+	--sl-color-accent-low: #fff0eb;
+	
+	--sl-color-bg-nav: #ffffff;
+	--sl-color-bg-sidebar: #f8fafc;
+	--sl-color-bg: #ffffff;
+}
+
+/* Custom Hero Styling */
+[data-has-hero] .hero {
+	padding-block: 6rem;
+	position: relative;
+	overflow: hidden;
+}
+
+/* Subtle background glow effect behind hero */
+[data-has-hero] .hero::before {
+	content: '';
+	position: absolute;
+	top: -50%;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 150%;
+	height: 150%;
+	background: radial-gradient(circle at center, rgba(240, 80, 51, 0.15) 0%, transparent 60%);
+	z-index: -1;
+	pointer-events: none;
+	animation: pulse-glow 8s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-glow {
+	0% { opacity: 0.8; transform: translateX(-50%) scale(1); }
+	100% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+}
+
+/* Enhance Hero Title */
+[data-has-hero] .hero h1 {
+	font-weight: 800;
+	letter-spacing: -0.02em;
+	font-size: 3.5rem;
+	background: linear-gradient(135deg, var(--sl-color-white) 30%, var(--sl-color-accent-high));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	/* Fallback for support */
+	color: var(--sl-color-white);
+	filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+:root[data-theme='light'] [data-has-hero] .hero h1 {
+	background: linear-gradient(135deg, var(--sl-color-black) 30%, var(--sl-color-accent));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+/* Hero Tagline */
+[data-has-hero] .hero .tagline {
+	font-size: 1.25rem;
+	color: var(--sl-color-gray-2);
+	max-width: 60ch;
+	margin-inline: auto;
+}
+
+/* Hero Image/Logo Animation */
+[data-has-hero] .hero img {
+	filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+	animation: float 6s ease-in-out infinite;
+	transition: transform 0.3s ease;
+}
+
+[data-has-hero] .hero img:hover {
+	transform: scale(1.05) rotate(5deg);
+}
+
+@keyframes float {
+	0%, 100% { transform: translateY(0); }
+	50% { transform: translateY(-10px); }
+}
+
+/* Card Styling enhancements */
+.card-grid {
+	gap: 1.5rem;
+}
+
+.card {
+	border: 1px solid var(--sl-color-gray-5);
+	background-color: var(--sl-color-black); /* Darker cards */
+	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+	position: relative;
+	overflow: hidden;
+}
+
+:root[data-theme='light'] .card {
+	background-color: var(--sl-color-white);
+}
+
+.card:hover {
+	border-color: var(--sl-color-accent);
+	transform: translateY(-5px);
+	box-shadow: 0 10px 30px -10px rgba(240, 80, 51, 0.3);
+}
+
+.card::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(45deg, transparent 0%, rgba(240, 80, 51, 0.03) 100%);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+	pointer-events: none;
+}
+
+.card:hover::after {
+	opacity: 1;
+}
+
+.card .title {
+	font-size: 1.1rem;
+	font-weight: 600;
+	/* Fix alignment: flex layout handles gap */
+	align-items: center;
+	gap: 0.75rem;
+	/* Reset margin-bottom as gap handles spacing if card is flex column, 
+       but Starlight default card title is row. 
+       If Starlight default title has margin-bottom, we keep it or adjust.
+       Default Starlight card gap handles spacing between title and body.
+    */
+}
+
+.card .icon {
+	color: var(--sl-color-accent);
+	background: rgba(240, 80, 51, 0.1);
+	/* Smaller fixed padding */
+	padding: 6px;
+	border-radius: 0.5rem;
+	margin-bottom: 0;
+	/* Slightly smaller font-size but larger than original attempts */
+	font-size: 2rem !important;
+	line-height: 1;
 }
 
 /* Mermaid diagram container */
@@ -19,6 +163,7 @@
 	border-radius: 0.75rem;
 	padding: 0.75rem;
 	margin-block: 1rem;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
 .mermaid svg {
@@ -29,6 +174,7 @@
 
 /* Dark theme overrides for Mermaid container */
 :root[data-theme='dark'] .mermaid {
-	background: #1e293b;
-	border-color: #475569;
+	background: #161b22;
+	border-color: #30363d;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
 }

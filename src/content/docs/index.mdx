@@ -3,47 +3,56 @@ title: GitTour
 description: 全网最全面的中文 Git 教程，从入门到专家一路打通。
 template: splash
 hero:
-  tagline: 用更少的时间，掌握更完整的 Git。
+  tagline: 从原理到实战，重塑你的 Git 知识体系。
   image:
     file: ../../assets/git.svg
-    alt: Git 图标
+    alt: Git Logo
   actions:
-    - text: 从入门开始
+    - text: 开始探索
       link: /01-getting-started/01-intro/
-      icon: right-arrow
-    - text: 查看 GitHub 仓库
+      icon: rocket
+    - text: GitHub 源码
       link: https://github.com/VrianCao/GitTour
-      icon: external
+      icon: github
       variant: minimal
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## 推荐阅读路线
+## 探索路径
 
 <CardGrid stagger>
-	<Card title="01 入门：先把环境搭好" icon="setting">
-		安装 Git、完成首次配置、理解 Git 的诞生背景与核心理念。
+	<Card title="入门：构建心智模型" icon="rocket">
+		不仅是安装配置，更从历史与设计哲学出发，理解 Git 的核心理念。
 	</Card>
-	<Card title="02 基础：掌握日常必备" icon="open-book">
-		围绕 `add` / `commit` / `status` / `diff` 等高频命令建立正确心智模型。
+	<Card title="基础：掌握核心操作" icon="pencil">
+		深入 `add`、`commit`、`diff` 等高频命令，建立清晰的工作区与暂存区概念。
 	</Card>
-	<Card title="03 分支：真正学会协作" icon="document">
-		理解分支是怎么来的、如何合并、如何解决冲突，并形成稳定的协作习惯。
+	<Card title="分支：协作的艺术" icon="random">
+		从底层指针理解分支本质，优雅地处理合并、解决冲突与管理特性开发。
 	</Card>
-	<Card title="04 协作：远程与团队流程" icon="add-document">
-		掌握远程仓库交互、拉取与推送、以及 GitHub PR 的标准流程。
+	<Card title="协作：远程与团队" icon="github">
+		精通远程仓库交互，规范 Pull Request 流程，适应从开源到企业的协作模式。
 	</Card>
-	<Card title="05 高级：重写历史与排错" icon="pencil">
-		深入 `rebase`、`reset`、`cherry-pick` 等高级操作，学会在复杂场景里做“正确的修复”。
+	<Card title="高级：重写与调试" icon="setting">
+		驾驭 `rebase`、`cherry-pick` 与 `bisect`，像手术刀一样精准地维护历史与定位 Bug。
 	</Card>
-	<Card title="06 原理：搞懂 .git 里发生了什么" icon="open-book">
-		从对象模型与引用系统出发，理解 Git 为什么能这么快、这么可靠。
+	<Card title="原理：黑盒之外" icon="puzzle">
+		解构 .git 目录，探索 Blob、Tree、Commit 对象模型，彻底告别对 Git 的恐惧。
 	</Card>
 </CardGrid>
 
-## 使用建议
+## 为什么选择 GitTour？
 
-- 建议按模块顺序阅读：01 → 02 → 03 是最短学习路径。
-- 每一章都尽量配合命令行实操：复制示例命令、观察输出、再回头理解原理。
-- 后续章节（07–09）更适合在有真实项目经验后作为“工具箱”随用随查。
+<CardGrid>
+	<Card title="深度与广度并重" icon="open-book">
+		拒绝浅尝辄止。不仅告诉你“怎么做”，更解释“为什么”，覆盖从小白到专家的完整成长路径。
+	</Card>
+	<Card title="实战导向" icon="laptop">
+		所有示例均源自真实开发场景，配备 Mermaid 流程图与 CLI 实操演示，拒绝空洞理论。
+	</Card>
+	<Card title="持续更新" icon="random">
+		紧跟 Git 版本迭代，涵盖最新的工具链与最佳实践，确保你的知识不过时。
+	</Card>
+</CardGrid>
+

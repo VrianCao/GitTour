@@ -1,11 +1,47 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Git">
-	<g fill="none" stroke="#f05033" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
-		<path d="M40 24v80" />
-		<path d="M40 64c0-8.837 14.327-16 32-16h16" />
-	</g>
-	<g fill="#f05033">
-		<circle cx="40" cy="24" r="10" />
-		<circle cx="88" cy="48" r="10" />
-		<circle cx="40" cy="104" r="10" />
-	</g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <!-- 连线的线性渐变 -->
+    <linearGradient id="lineGradient" x1="160" y1="400" x2="352" y2="112" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#e64a19" />
+      <stop offset="50%" stop-color="#f05033" />
+      <stop offset="100%" stop-color="#ff7043" />
+    </linearGradient>
+    
+    <!-- 球体的径向渐变 (模拟3D高光) -->
+    <radialGradient id="sphereGradient" cx="35%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#ffccbc" /> <!-- 高光 -->
+      <stop offset="40%" stop-color="#f05033" /> <!-- 本色 -->
+      <stop offset="100%" stop-color="#b71c1c" /> <!-- 阴影 -->
+    </radialGradient>
+  </defs>
+
+  <!-- 阴影层 (模拟投影，确保在暗色背景下有立体感) -->
+  <g opacity="0.3" transform="translate(8, 8)">
+    <path d="M160 112 V 400" stroke="#000" stroke-width="28" stroke-linecap="round" />
+    <path d="M160 256 C 160 190, 260 160, 352 160" stroke="#000" stroke-width="28" stroke-linecap="round" fill="none" />
+    <circle cx="160" cy="400" r="48" fill="#000" />
+    <circle cx="160" cy="256" r="48" fill="#000" />
+    <circle cx="160" cy="112" r="48" fill="#000" />
+    <circle cx="352" cy="160" r="48" fill="#000" />
+  </g>
+
+  <!-- 连线层 -->
+  <g stroke="url(#lineGradient)" stroke-width="28" stroke-linecap="round">
+    <!-- 主干: 从下往上 -->
+    <path d="M160 112 V 400" />
+    <!-- 分支: 从中间向右上方平滑弯曲 -->
+    <path d="M160 256 C 160 190, 260 160, 352 160" fill="none" />
+  </g>
+
+  <!-- 节点层 (球体) -->
+  <g fill="url(#sphereGradient)">
+    <!-- 底部节点 -->
+    <circle cx="160" cy="400" r="48" />
+    <!-- 中间分叉节点 -->
+    <circle cx="160" cy="256" r="48" />
+    <!-- 主干顶部节点 -->
+    <circle cx="160" cy="112" r="48" />
+    <!-- 分支顶部节点 -->
+    <circle cx="352" cy="160" r="48" />
+  </g>
 </svg>
