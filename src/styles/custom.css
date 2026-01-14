@@ -20,94 +20,21 @@
 	--sl-color-bg: #ffffff;
 }
 
-/* Custom Hero Styling */
+/* ========================================
+   Hero 样式
+   ======================================== */
+
 [data-has-hero] .hero {
-	padding-block: 6rem;
+	padding-block: 8rem;
 	position: relative;
 	overflow: hidden;
 }
 
-/* 多层同心圆辉光系统 */
-[data-has-hero] .hero::before,
-[data-has-hero] .hero::after {
-	content: '';
-	position: absolute;
-	top: 38%; /* 向上调整，对齐 LOGO 中心 */
-	left: 50%;
-	transform: translate(-50%, -50%);
-	border-radius: 50%;
-	pointer-events: none;
-	z-index: -1;
+[data-has-hero] .hero > .stack {
+	position: relative;
 }
 
-
-/* 第一层 - 核心辉光 */
-[data-has-hero] .hero::before {
-	width: 400px;
-	height: 400px;
-	background: radial-gradient(
-		circle,
-		rgba(240, 80, 51, 0.25) 0%,
-		rgba(240, 80, 51, 0.12) 30%,
-		rgba(240, 80, 51, 0.04) 60%,
-		transparent 70%
-	);
-	animation: core-pulse 4s ease-in-out infinite;
-}
-
-/* 第二层 - 扩散光晕 */
-[data-has-hero] .hero::after {
-	width: 700px;
-	height: 700px;
-	background: radial-gradient(
-		circle,
-		rgba(240, 80, 51, 0.08) 0%,
-		rgba(240, 80, 51, 0.04) 40%,
-		rgba(255, 120, 80, 0.02) 60%,
-		transparent 70%
-	);
-	animation: outer-pulse 6s ease-in-out infinite;
-	animation-delay: -2s;
-}
-
-@keyframes core-pulse {
-	0%, 100% { 
-		opacity: 1; 
-		transform: translate(-50%, -50%) scale(1);
-	}
-	50% { 
-		opacity: 0.8; 
-		transform: translate(-50%, -50%) scale(1.1);
-	}
-}
-
-@keyframes outer-pulse {
-	0%, 100% { 
-		opacity: 0.8; 
-		transform: translate(-50%, -50%) scale(1);
-	}
-	50% { 
-		opacity: 1; 
-		transform: translate(-50%, -50%) scale(1.15);
-	}
-}
-
-/* ========================================
-   Hero 视觉增强 - 舞台感与深度
-   ======================================== */
-
-[data-has-hero] .hero {
-	padding-block: 8rem; /* 增加呼吸感 */
-	/* 引入数字化网格背景 */
-	background-image: 
-		radial-gradient(circle at center, rgba(240, 80, 51, 0.05) 0%, transparent 70%),
-		linear-gradient(rgba(240, 80, 51, 0.02) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(240, 80, 51, 0.02) 1px, transparent 1px);
-	background-size: 100% 100%, 40px 40px, 40px 40px;
-	background-position: center center;
-}
-
-/* 优化标题渐变：回归克制，提升质感 */
+/* 标题样式 */
 [data-has-hero] .hero h1 {
 	font-weight: 900;
 	letter-spacing: -0.04em;
@@ -115,20 +42,16 @@
 	line-height: 1.1;
 }
 
-/* 深色模式（默认或显式）：纯白微光 */
+/* 深色模式标题 */
 :root:not([data-theme='light']) [data-has-hero] .hero h1 {
-	background: linear-gradient(
-		to bottom right, 
-		#ffffff 50%, 
-		#ffece6 100%
-	);
+	background: linear-gradient(to bottom right, #ffffff 50%, #ffece6 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
 	filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-/* 浅色模式：深炭灰墨水质感 */
+/* 浅色模式标题 */
 :root[data-theme='light'] [data-has-hero] .hero h1 {
 	background: linear-gradient(to bottom right, #1a1a1a 30%, #4a4a4a 100%);
 	-webkit-background-clip: text;
@@ -137,8 +60,22 @@
 	filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05));
 }
 
+/* 浅色模式 LOGO 阴影 */
+:root[data-theme='light'] [data-has-hero] .hero img {
+	filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.08));
+}
+
+:root[data-theme='light'] [data-has-hero] .hero img:hover {
+	filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.12));
+}
+
+/* Hero Actions - 图标在前 */
+[data-has-hero] .hero .sl-link-button {
+	flex-direction: row-reverse !important;
+}
+
 /* ========================================
-   卡片进化 - 交互式高亮与玻璃感
+   卡片样式
    ======================================== */
 
 .card {
@@ -169,7 +106,7 @@
 		0 0 20px rgba(240, 80, 51, 0.1);
 }
 
-/* 卡片内图标微动效 */
+/* 卡片图标动效 */
 .card .icon {
 	transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -179,13 +116,9 @@
 	background: rgba(240, 80, 51, 0.2);
 }
 
-
-/* Hero Actions - 强制图标在前 */
-[data-has-hero] .hero .sl-link-button {
-	flex-direction: row-reverse !important;
-}
-
-/* Mermaid diagram container */
+/* ========================================
+   Mermaid 图表容器
+   ======================================== */
 
 .mermaid {
 	overflow-x: auto;
@@ -203,46 +136,8 @@
 	display: block;
 }
 
-/* Dark theme overrides for Mermaid container */
 :root[data-theme='dark'] .mermaid {
 	background: #161b22;
 	border-color: #30363d;
 	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-}
-
-/* ========================================
-   Hero 视觉增强 - 第三层光效与装饰
-   ======================================== */
-
-/* Hero 容器增强 - 微妙的径向渐变背景 */
-[data-has-hero] .hero > .stack {
-	position: relative;
-}
-
-/* 亮色主题辉光调整 - 极度克制，避免“脏”感 */
-/* 亮色主题辉光 - 完全移除 */
-:root[data-theme='light'] [data-has-hero] .hero::before,
-:root[data-theme='light'] [data-has-hero] .hero::after {
-	display: none !important;
-	background: none !important;
-	opacity: 0 !important;
-}
-
-/* 亮色主题 LOGO 阴影调整 - 极致纯净 */
-:root[data-theme='light'] [data-has-hero] .hero img {
-	filter: 
-		/* 主阴影：仅保留纯净的深色投影，移除所有彩色光晕，避免“显脏” */
-		drop-shadow(0 15px 30px rgba(0, 0, 0, 0.08));
-}
-
-:root[data-theme='light'] [data-has-hero] .hero img:hover {
-	filter: 
-		drop-shadow(0 20px 40px rgba(0, 0, 0, 0.12))
-		drop-shadow(0 0 25px rgba(240, 80, 51, 0.1));
-}
-
-/* 亮色主题 Hero 背景 - 完全移除辉光和网格 */
-:root[data-theme='light'] [data-has-hero] .hero {
-	background-image: none !important;
-	background: var(--sl-color-bg) !important;
 }
