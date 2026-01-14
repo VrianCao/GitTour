@@ -107,29 +107,34 @@
 	background-position: center center;
 }
 
-/* 优化标题渐变：克制且高级 */
+/* 优化标题渐变：回归克制，提升质感 */
 [data-has-hero] .hero h1 {
 	font-weight: 900;
 	letter-spacing: -0.04em;
 	font-size: clamp(3rem, 6vw, 4.5rem);
 	line-height: 1.1;
-	/* 简约双色渐变：纯白到 Git 橙 */
+}
+
+/* 深色模式（默认或显式）：纯白微光 */
+:root:not([data-theme='light']) [data-has-hero] .hero h1 {
 	background: linear-gradient(
-		135deg, 
-		var(--sl-color-white) 30%, 
-		var(--sl-color-accent) 90%
+		to bottom right, 
+		#ffffff 50%, 
+		#ffece6 100%
 	);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	background-clip: text;
-	/* 移除过重的阴影，改用轻微的扩散效果 */
 	filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
+/* 浅色模式：深炭灰墨水质感 */
 :root[data-theme='light'] [data-has-hero] .hero h1 {
-	background: linear-gradient(135deg, var(--sl-color-black) 30%, var(--sl-color-accent) 90%);
+	background: linear-gradient(to bottom right, #1a1a1a 30%, #4a4a4a 100%);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05));
 }
 
 /* ========================================
@@ -143,11 +148,24 @@
 	transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+:root[data-theme='light'] .card {
+	background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(248, 250, 252, 0.9) 100%);
+	border: 1px solid rgba(240, 80, 51, 0.15);
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
 .card:hover {
 	border-color: rgba(240, 80, 51, 0.4);
 	transform: translateY(-8px) scale(1.02);
 	box-shadow: 
 		0 20px 40px -10px rgba(0, 0, 0, 0.5),
+		0 0 20px rgba(240, 80, 51, 0.1);
+}
+
+:root[data-theme='light'] .card:hover {
+	background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 1) 100%);
+	box-shadow: 
+		0 20px 40px -10px rgba(0, 0, 0, 0.1),
 		0 0 20px rgba(240, 80, 51, 0.1);
 }
 
@@ -164,7 +182,7 @@
 
 /* Hero Actions - 强制图标在前 */
 [data-has-hero] .hero .sl-link-button {
-	flex-direction: row !important;
+	flex-direction: row-reverse !important;
 }
 
 /* Mermaid diagram container */
@@ -201,37 +219,45 @@
 	position: relative;
 }
 
-/* 亮色主题辉光调整 */
+/* 亮色主题辉光调整 - 极度克制，避免“脏”感 */
 :root[data-theme='light'] [data-has-hero] .hero::before {
 	background: radial-gradient(
 		circle,
-		rgba(240, 80, 51, 0.12) 0%,
-		rgba(240, 80, 51, 0.06) 30%,
-		rgba(240, 80, 51, 0.02) 60%,
+		rgba(240, 80, 51, 0.04) 0%, 
+		rgba(240, 80, 51, 0.02) 40%,
 		transparent 70%
 	);
+	/* 稍微减弱动画幅度 */
+	animation-duration: 6s;
 }
 
 :root[data-theme='light'] [data-has-hero] .hero::after {
+	/* 外层几乎不可见，仅作为氛围 */
 	background: radial-gradient(
 		circle,
-		rgba(240, 80, 51, 0.05) 0%,
-		rgba(240, 80, 51, 0.02) 40%,
+		rgba(240, 80, 51, 0.02) 0%,
 		transparent 60%
 	);
 }
 
-/* 亮色主题 LOGO 阴影调整 */
+/* 亮色主题 LOGO 阴影调整 - 极致纯净 */
 :root[data-theme='light'] [data-has-hero] .hero img {
 	filter: 
-		drop-shadow(0 0 15px rgba(240, 80, 51, 0.25))
-		drop-shadow(0 0 30px rgba(240, 80, 51, 0.12))
-		drop-shadow(0 6px 12px rgba(0, 0, 0, 0.15));
+		/* 主阴影：仅保留纯净的深色投影，移除所有彩色光晕，避免“显脏” */
+		drop-shadow(0 15px 30px rgba(0, 0, 0, 0.08));
 }
 
 :root[data-theme='light'] [data-has-hero] .hero img:hover {
 	filter: 
-		drop-shadow(0 0 25px rgba(240, 80, 51, 0.4))
-		drop-shadow(0 0 50px rgba(240, 80, 51, 0.2))
-		drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+		drop-shadow(0 20px 40px rgba(0, 0, 0, 0.12))
+		drop-shadow(0 0 25px rgba(240, 80, 51, 0.1));
+}
+
+/* 亮色主题 Hero 背景网格净化 */
+:root[data-theme='light'] [data-has-hero] .hero {
+	/* 将背景网格从橙色改为极淡的中性灰，背景光晕改为极淡 */
+	background-image: 
+		radial-gradient(circle at center, rgba(240, 80, 51, 0.03) 0%, transparent 60%),
+		linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
 }
