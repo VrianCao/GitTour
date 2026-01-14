@@ -97,6 +97,14 @@ graph LR
     subgraph .git directory
         HEAD
     end
+    
+    classDef head fill:#e53e3e,stroke:#c53030,color:#fff
+    classDef branch fill:#3182ce,stroke:#2c5282,color:#fff
+    classDef commit fill:#4a5568,stroke:#2d3748,color:#fff
+    
+    class HEAD head
+    class RefMaster,RefFeature branch
+    class C1,C2 commit
 ```
 
 ## 总结

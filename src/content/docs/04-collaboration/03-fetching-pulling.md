@@ -58,19 +58,26 @@ graph TD
         L2_C1((C1)) --> L2_C2((C2)) --> L2_C3((C3))
         HEAD_F[HEAD] --> main_F[main] --> L2_C2
         origin_main_F[origin/main] --> L2_C3
-        style main_F fill:#ff9,stroke:#333
-        style origin_main_F fill:#9f9,stroke:#333
     end
 
     subgraph Local_Pull [执行 git pull 后]
         L3_C1((C1)) --> L3_C2((C2)) --> L3_C3((C3))
         HEAD_P[HEAD] --> main_P[main] --> L3_C3
         origin_main_P[origin/main] --> L3_C3
-        style main_P fill:#9f9,stroke:#333
     end
     
     Remote -.-> Local_Fetch
     Remote -.-> Local_Pull
+
+    %% 样式类定义 - 适配亮/暗模式
+    classDef localBranch fill:#4a5568,stroke:#2d3748,color:#fff
+    classDef remoteBranch fill:#3182ce,stroke:#2c5282,color:#fff
+    classDef synced fill:#38a169,stroke:#276749,color:#fff
+
+    %% 应用样式
+    class main_F localBranch
+    class origin_main_F remoteBranch
+    class main_P,origin_main_P synced
 ```
 
 - **Local_Fetch**: `origin/main` 指针向前移动了，但你的 `main` 指针还在原地。你的工作目录未受影响。

@@ -18,8 +18,11 @@ graph LR
     Local -- "push (推送)" --> Remote
     Remote -- "pull (拉取)" --> Local
     
-    style Local fill:#f9f,stroke:#333,stroke-width:2px
-    style Remote fill:#bbf,stroke:#333,stroke-width:2px
+    classDef local fill:#4a5568,stroke:#2d3748,color:#fff,stroke-width:2px
+    classDef remote fill:#3182ce,stroke:#2c5282,color:#fff,stroke-width:2px
+    
+    class Local local
+    class Remote remote
 ```
 
 ## 查看远程仓库

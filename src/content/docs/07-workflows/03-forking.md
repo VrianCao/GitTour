@@ -75,10 +75,15 @@ flowchart TD
     Local --3. Commit & Push--> Origin
     Origin --4. Pull Request--> Upstream
     Upstream --5. Fetch/Pull (Sync)--> Local
-    
-    style Upstream fill:#f9f,stroke:#333,stroke-width:2px
-    style Origin fill:#bbf,stroke:#333,stroke-width:2px
-    style Local fill:#bfb,stroke:#333,stroke-width:2px
+
+    %% 样式定义
+    classDef upstream fill:#e53e3e,stroke:#c53030,color:#fff,stroke-width:2px
+    classDef fork fill:#3182ce,stroke:#2c5282,color:#fff,stroke-width:2px
+    classDef local fill:#38a169,stroke:#276749,color:#fff,stroke-width:2px
+
+    class Upstream upstream
+    class Origin fork
+    class Local local
 ```
 
 ## 优缺点分析

@@ -91,9 +91,15 @@ graph TD
     v2 -->|git reset --mixed v1| mixed
     v2 -->|git reset --hard v1| hard
 
-    style soft fill:#d4edda,stroke:#28a745,color:#155724
-    style mixed fill:#fff3cd,stroke:#ffc107,color:#856404
-    style hard fill:#f8d7da,stroke:#dc3545,color:#721c24
+    classDef current fill:#4a5568,stroke:#2d3748,color:#fff
+    classDef safeOp fill:#38a169,stroke:#276749,color:#fff
+    classDef mixedOp fill:#3182ce,stroke:#2c5282,color:#fff
+    classDef dangerOp fill:#e53e3e,stroke:#c53030,color:#fff
+
+    class v2 current
+    class soft safeOp
+    class mixed mixedOp
+    class hard dangerOp
 ```
 
 ### 详细对比表

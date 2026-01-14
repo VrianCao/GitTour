@@ -26,11 +26,17 @@ graph LR
     Modified -- "git add" --> Staged((已暂存))
     Staged -- "git commit" --> Unmodified
     Unmodified -- "git rm" --> Untracked((移除))
-    
-    style Untracked fill:#f9f,stroke:#333,stroke-width:2px
-    style Unmodified fill:#fff,stroke:#333,stroke-width:2px
-    style Modified fill:#ff9,stroke:#333,stroke-width:2px
-    style Staged fill:#9f9,stroke:#333,stroke-width:2px
+
+    %% 定义适配亮/暗模式的样式类
+    classDef untrackedNode fill:#718096,stroke:#4a5568,color:#fff,stroke-width:2px
+    classDef unmodifiedNode fill:#4a5568,stroke:#2d3748,color:#fff,stroke-width:2px
+    classDef modifiedNode fill:#e53e3e,stroke:#c53030,color:#fff,stroke-width:2px
+    classDef stagedNode fill:#3182ce,stroke:#2c5282,color:#fff,stroke-width:2px
+
+    class Untracked untrackedNode
+    class Unmodified unmodifiedNode
+    class Modified modifiedNode
+    class Staged stagedNode
 ```
 
 ## 核心概念：三个区域

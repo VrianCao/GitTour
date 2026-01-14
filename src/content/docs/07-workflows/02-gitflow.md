@@ -59,9 +59,9 @@ Gitflow 使用两个长期存在的分支来记录项目的历史：
 下图展示了 Gitflow 各分支的生命周期流向：
 
 ```mermaid
+%%{init: { 'gitGraph': {'mainBranchName': 'master'}} }%%
 gitGraph
    commit id: "Initial"
-   branch master
    branch develop
    checkout develop
    commit id: "Dev Start"

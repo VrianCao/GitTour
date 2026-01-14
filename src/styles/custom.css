@@ -11,10 +11,11 @@
 	--sl-color-accent-low: #ffe6e1;
 }
 
+/* Mermaid diagram container */
 .mermaid {
 	overflow-x: auto;
-	background: var(--sl-color-bg-inline-code);
-	border: 1px solid var(--sl-color-hairline-light);
+	background: #f8fafc;
+	border: 1px solid #cbd5e1;
 	border-radius: 0.75rem;
 	padding: 0.75rem;
 	margin-block: 1rem;
@@ -26,7 +27,8 @@
 	display: block;
 }
 
-/* Improve contrast on dark theme */
+/* Dark theme overrides for Mermaid container */
 :root[data-theme='dark'] .mermaid {
-	border-color: var(--sl-color-hairline);
+	background: #1e293b;
+	border-color: #475569;
 }

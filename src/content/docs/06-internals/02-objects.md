@@ -84,14 +84,15 @@ graph TD
     
     end
     
-    style C1 fill:#f9f,stroke:#333,stroke-width:2px
-    style C2 fill:#f9f,stroke:#333,stroke-width:2px
-    style T1 fill:#bbf,stroke:#333,stroke-width:2px
-    style T2 fill:#bbf,stroke:#333,stroke-width:2px
-    style B1 fill:#bfb,stroke:#333,stroke-width:2px
-    style B2 fill:#bfb,stroke:#333,stroke-width:2px
-    style B3 fill:#bfb,stroke:#333,stroke-width:2px
-    style Tag fill:#ff9,stroke:#333,stroke-width:2px
+    classDef blob fill:#38a169,stroke:#276749,color:#fff
+    classDef tree fill:#3182ce,stroke:#2c5282,color:#fff
+    classDef commit fill:#e53e3e,stroke:#c53030,color:#fff
+    classDef tag fill:#805ad5,stroke:#6b46c1,color:#fff
+    
+    class C1,C2 commit
+    class T1,T2 tree
+    class B1,B2,B3 blob
+    class Tag tag
 ```
 
 ### 图解说明

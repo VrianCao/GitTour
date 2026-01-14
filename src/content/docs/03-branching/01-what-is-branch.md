@@ -74,12 +74,17 @@ graph TD
     master_branch --> Commit_C[提交: f30ab]
     
     subgraph Git Database
-    Commit_A[提交: 98ca9] --> Commit_B[提交: 34ac2]
-    Commit_B --> Commit_C
+        Commit_A[提交: 98ca9] --> Commit_B[提交: 34ac2]
+        Commit_B --> Commit_C
     end
     
-    style HEAD fill:#f9f,stroke:#333,stroke-width:2px
-    style master_branch fill:#bbf,stroke:#333,stroke-width:2px
+    classDef headNode fill:#e53e3e,stroke:#c53030,color:#fff,stroke-width:2px
+    classDef branchNode fill:#3182ce,stroke:#2c5282,color:#fff,stroke-width:2px
+    classDef commitNode fill:#4a5568,stroke:#2d3748,color:#fff
+    
+    class HEAD headNode
+    class master_branch branchNode
+    class Commit_A,Commit_B,Commit_C commitNode
 ```
 
 当你执行 `git switch testing` 或 `git checkout testing` 时，Git 只需要把 HEAD 指针从 `master` 移到 `testing` 即可。
