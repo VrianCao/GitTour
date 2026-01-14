@@ -220,24 +220,12 @@
 }
 
 /* 亮色主题辉光调整 - 极度克制，避免“脏”感 */
-:root[data-theme='light'] [data-has-hero] .hero::before {
-	background: radial-gradient(
-		circle,
-		rgba(240, 80, 51, 0.04) 0%, 
-		rgba(240, 80, 51, 0.02) 40%,
-		transparent 70%
-	);
-	/* 稍微减弱动画幅度 */
-	animation-duration: 6s;
-}
-
+/* 亮色主题辉光 - 完全移除 */
+:root[data-theme='light'] [data-has-hero] .hero::before,
 :root[data-theme='light'] [data-has-hero] .hero::after {
-	/* 外层几乎不可见，仅作为氛围 */
-	background: radial-gradient(
-		circle,
-		rgba(240, 80, 51, 0.02) 0%,
-		transparent 60%
-	);
+	display: none !important;
+	background: none !important;
+	opacity: 0 !important;
 }
 
 /* 亮色主题 LOGO 阴影调整 - 极致纯净 */
@@ -253,11 +241,8 @@
 		drop-shadow(0 0 25px rgba(240, 80, 51, 0.1));
 }
 
-/* 亮色主题 Hero 背景网格净化 */
+/* 亮色主题 Hero 背景 - 完全移除辉光和网格 */
 :root[data-theme='light'] [data-has-hero] .hero {
-	/* 将背景网格从橙色改为极淡的中性灰，背景光晕改为极淡 */
-	background-image: 
-		radial-gradient(circle at center, rgba(240, 80, 51, 0.03) 0%, transparent 60%),
-		linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-		linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+	background-image: none !important;
+	background: var(--sl-color-bg) !important;
 }
