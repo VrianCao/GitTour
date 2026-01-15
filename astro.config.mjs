@@ -73,6 +73,7 @@ export default defineConfig({
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/VrianCao/GitTour' }],
 			editLink: { baseUrl: 'https://github.com/VrianCao/GitTour/edit/master/' },
 			lastUpdated: true,
+			disable404Route: true,
 			customCss: ['./src/styles/custom.css'],
 			expressiveCode: {
 				shiki: {

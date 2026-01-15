@@ -24,9 +24,7 @@ git fetch origin
 
 默认情况下（未配置时）：
 
-$$
-\text{git pull} = \text{git fetch} + \text{git merge}
-$$
+`git pull` 等于先 `git fetch` 再 `git merge`。
 
 但这不是绝对的！`git pull` 的行为可通过配置或参数改变：
 
