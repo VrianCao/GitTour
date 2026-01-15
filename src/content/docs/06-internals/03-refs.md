@@ -15,13 +15,16 @@ description: "揭秘分支和标签的本质：它们只是指向哈希的指针
 
 我们可以通过文件系统直接查看这些引用。
 
-```bash
+```git
 ls -F .git/refs/
-# 输出可能包含:
-# heads/    (存放本地分支)
-# tags/     (存放标签)
-# remotes/  (存放远程分支)
+heads/
+tags/
+remotes/
 ```
+
+- `heads/`：存放本地分支
+- `tags/`：存放标签
+- `remotes/`：存放远程分支
 
 ### 1. 分支 (Heads)
 
@@ -29,13 +32,14 @@ ls -F .git/refs/
 
 **验证一下：**
 
-```bash
+```git
 # 查看 master 分支指向的提交
 cat .git/refs/heads/master
-# 输出: 1a2b3c4d5e... (一个哈希值)
+1a2b3c4d5e...
 
 # 验证它是否与 git log 显示的一致
 git log -1 --format=%H
+1a2b3c4d5e...
 ```
 
 所以，**Git 的分支非常轻量**。创建一个分支仅仅是写入一个很小的引用记录（通常就是一行对象 ID），无论你的项目有几百兆大，创建分支都是瞬间完成的。
@@ -61,9 +65,9 @@ git log -1 --format=%H
 
 如果你查看 `.git/HEAD` 文件，你会发现它通常不包含哈希值，而是指向另一个引用。这被称为 **符号引用 (Symbolic Ref)**。
 
-```bash
+```git
 cat .git/HEAD
-# 输出: ref: refs/heads/master
+ref: refs/heads/master
 ```
 
 这句话的意思是：“我现在处于 `master` 分支上”。当我们提交代码时，Git 会先解析 `HEAD` 找到 `refs/heads/master`，然后更新 `refs/heads/master` 指向新的 Commit 哈希。
@@ -75,9 +79,9 @@ cat .git/HEAD
 git checkout 1a2b3c...
 ```
 `.git/HEAD` 的内容会直接变成该哈希值：
-```bash
+```git
 cat .git/HEAD
-# 输出: 1a2b3c...
+1a2b3c...
 ```
 这就叫 **分离头指针** 状态。此时 `HEAD` 不指向任何分支引用，因此新的提交不会更新任何分支。一旦切走，这些提交可能会被垃圾回收。
 

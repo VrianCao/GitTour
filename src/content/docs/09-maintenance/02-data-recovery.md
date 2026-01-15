@@ -28,7 +28,7 @@ git reflog
 ```
 
 输出示例：
-```plaintext
+```git
 e3b0a1f (HEAD -> main) HEAD@{0}: commit: fix login bug
 8a2b3c4 HEAD@{1}: reset: moving to HEAD~1
 9f8e7d6 HEAD@{2}: commit: wip login feature  <-- 以为丢失的提交

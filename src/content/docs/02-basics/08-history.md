@@ -44,7 +44,7 @@ git log --stat
 ```
 
 输出示例：
-```text
+```git
  commit ca82a6dff817ec66f44342007202690a93763949
  Author: GitTour User <user@example.com>
  Date:   Mon May 13 20:52:19 2024 +0800

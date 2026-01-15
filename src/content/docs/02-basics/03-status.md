@@ -14,7 +14,7 @@ description: "深入理解 git status 输出，掌握 .gitignore 匹配规则，
 ### 1. Changes to be committed (已暂存的修改)
 这部分显示的是**绿字**（在大多数终端中）。这些文件已经执行过 `git add`，准备好被提交了。
 
-```bash
+```git
 On branch main
 Changes to be committed:
   (use "git restore --staged <file>..." to unstage)
@@ -25,7 +25,7 @@ Changes to be committed:
 ### 2. Changes not staged for commit (未暂存的修改)
 这部分显示的是**红字**。这些文件在工作区被修改了，但还没有添加到暂存区。如果你现在执行 `git commit`，这些修改**不会**被包含进去。
 
-```bash
+```git
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git restore <file>..." to discard changes in working directory)
@@ -35,7 +35,7 @@ Changes not staged for commit:
 ### 3. Untracked files (未跟踪的文件)
 这部分也是**红字**。这些是 Git 之前从未见过的文件（新创建的）。除非你显式地 `add` 它们，否则 Git 不会开始跟踪它们的历史。
 
-```bash
+```git
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
     logs/debug.log
@@ -59,7 +59,7 @@ git status -s
 这种情况通常发生在：你修改了文件 → `git add` 暂存 → 再次修改了同一文件。
 
 实际演示：
-```bash
+```git
 # 1. 修改文件并暂存
 echo "第一处修改" >> test.txt
 git add test.txt
@@ -69,10 +69,10 @@ echo "第二处修改" >> test.txt
 
 # 3. 查看紧凑状态
 git status -s
-# 输出：MM test.txt
-#      ^ ^
-#      | └─ 工作区被修改（暂存后又有新改动）
-#      └── 已暂存（第一次修改在暂存区）
+MM test.txt
+# ^ ^
+# | └─ 工作区被修改（暂存后又有新改动）
+# └── 已暂存（第一次修改在暂存区）
 ```
 :::
 

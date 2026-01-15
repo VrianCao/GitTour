@@ -91,9 +91,9 @@ git config --list
 
 如果你只想查看某一项特定的配置：
 
-```bash
+```git
 git config user.name
-# 输出: Your Name
+Your Name
 ```
 
 还可以加上 `--show-origin` 来查看配置具体是在哪个文件中定义的：

@@ -18,7 +18,7 @@ git blame src/utils/calculator.ts
 ```
 
 输出示例：
-```text
+```git
 5a3d12f9 (Alice 2023-10-01 14:30:00 +0800 1) export function add(a, b) {
 5a3d12f9 (Alice 2023-10-01 14:30:00 +0800 2)   return a + b;
 7b8c92a1 (Bob   2023-11-15 09:15:00 +0800 3) }
@@ -67,8 +67,9 @@ git blame src/utils/calculator.ts
     ```
 
     此时，Git 会自动计算中间的提交，并 checkout 到该状态：
-    ```text
-    Bisecting: 100 revisions left to test after this (roughly 7 steps)
+```git
+Bisecting: 100 revisions left to test after this (roughly 7 steps)
+
     [3a1b2c...] refactor: update user login logic
     ```
 
@@ -87,8 +88,9 @@ git blame src/utils/calculator.ts
 
 5.  **结束查找**：
     找到问题提交后，Git 会输出类似信息：
-    ```text
-    8d9e1f... is the first bad commit
+```git
+8d9e1f... is the first bad commit
+
     commit 8d9e1f...
     Author: Charlie <charlie@example.com>
     Date:   Tue Dec 12 10:00:00 2023 +0800

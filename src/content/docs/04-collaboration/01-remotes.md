@@ -44,8 +44,9 @@ git remote -v
 ```
 
 **输出示例：**
-```text
+```git
 origin  https://github.com/user/repo.git (fetch)
+
 origin  https://github.com/user/repo.git (push)
 ```
 

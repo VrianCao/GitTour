@@ -116,7 +116,7 @@ build/keep/*
 
 使用 `git check-ignore` 命令查看是哪一行规则生效了。
 
-```bash
+```git
 $ git check-ignore -v app/build/temp.txt
 .gitignore:3:build/    app/build/temp.txt
 ```

@@ -72,7 +72,7 @@ git help config
 
 输入 `git config -h`：
 
-```text
+```git
 usage: git config [<options>]
 
 Config file location

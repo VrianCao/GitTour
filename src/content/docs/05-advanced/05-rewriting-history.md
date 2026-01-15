@@ -67,7 +67,7 @@ Git 会打开一个编辑器，显示类似下面的内容：
 ```text
 pick 1a2b3c wip: login page structure
 pick 4d5e6f fix: typo in login css
-pick 7g8h9i feat: finish login page
+pick 7a8b9c feat: finish login page
 
 # Rebase ... onto ...
 # Commands:
@@ -84,7 +84,7 @@ pick 7g8h9i feat: finish login page
 ```text
 pick 1a2b3c wip: login page structure
 s 4d5e6f fix: typo in login css
-s 7g8h9i feat: finish login page
+s 7a8b9c feat: finish login page
 ```
 
 ### 2.3 完成变基

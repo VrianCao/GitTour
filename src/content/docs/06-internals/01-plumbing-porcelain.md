@@ -60,7 +60,7 @@ echo "Hello, Git Internals!" | git hash-object -w --stdin
 ```
 
 输出（你的哈希值可能略有不同，取决于换行符等细节）：
-```
+```git
 a0423896973644771497bdc03eb99d5281615b51
 ```
 
@@ -71,15 +71,15 @@ a0423896973644771497bdc03eb99d5281615b51
 我们可以使用 `git cat-file` 来检查刚刚写入的内容。
 
 查看对象类型：
-```bash
+```git
 git cat-file -t a0423896973644771497bdc03eb99d5281615b51
-# 输出: blob
+blob
 ```
 
 查看对象内容：
-```bash
+```git
 git cat-file -p a0423896973644771497bdc03eb99d5281615b51
-# 输出: Hello, Git Internals!
+Hello, Git Internals!
 ```
 
 :::note

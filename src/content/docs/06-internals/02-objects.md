@@ -22,11 +22,11 @@ Git 的核心本质是一个 **键值对文件系统 (Content-addressable filesy
 
 我们可以通过 `git cat-file` 验证这一点：
 
-```bash
+```git
 # 创建一个包含 "version 1" 的文件
 echo "version 1" > test.txt
 git hash-object -w test.txt
-# 输出: 83baae61804e65cc73a7201a7252750c76066a30
+83baae61804e65cc73a7201a7252750c76066a30
 ```
 
 ## 2. Tree 对象 (目录结构)
@@ -105,23 +105,21 @@ graph TD
 
 你可以在任何 Git 仓库中通过 `git log` 找到一个 Commit 哈希，然后开始顺藤摸瓜：
 
-```bash
+```git
 # 1. 查看最新的 Commit
 git cat-file -p HEAD
 
-# 输出示例:
-# tree 5d6e...
-# parent ...
-# author ...
-# committer ...
-# message ...
+tree 5d6e...
+parent ...
+author ...
+committer ...
+message ...
 
 # 2. 拿着上面的 tree 哈希值，查看 Tree 对象
 git cat-file -p 5d6e...
 
-# 输出示例:
-# 100644 blob 83ba...    README.md
-# 040000 tree 0ab4...    src
+100644 blob 83ba...    README.md
+040000 tree 0ab4...    src
 
 # 3. 拿着 blob 哈希值，查看文件内容
 git cat-file -p 83ba...

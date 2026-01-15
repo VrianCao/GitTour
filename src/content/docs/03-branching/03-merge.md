@@ -56,7 +56,7 @@ git merge feature
 
 **CLI 输出示例：**
 
-```text
+```git
 Updating 3a1b2c..8d9e0f
 Fast-forward
  file1.txt | 2 ++
@@ -128,7 +128,7 @@ git merge feature
 **CLI 输出示例：**
 此时 Git 通常会弹出一个默认编辑器让你输入合并提交的信息（默认是 `Merge branch 'feature'`）。
 
-```text
+```git
 Merge made by the 'ort' strategy.
  file_in_feature.txt | 1 +
  1 file changed, 1 insertion(+)

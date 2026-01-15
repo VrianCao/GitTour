@@ -30,7 +30,7 @@ git push origin feature:dev
 
 如果你在新建的仓库中第一次推送，或者推送一个新创建的本地分支，你可能会看到这样的错误：
 
-```text
+```git
 fatal: The current branch main has no upstream branch.
 To push the current branch and set the remote as upstream, use
 
@@ -61,7 +61,7 @@ git config --get push.default
 
 有时，你的推送会失败，并提示 `[rejected]`。
 
-```text
+```git
  ! [rejected]        main -> main (fetch first)
 error: failed to push some refs to '...'
 hint: Updates were rejected because the remote contains work that you do

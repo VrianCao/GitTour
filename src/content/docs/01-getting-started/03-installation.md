@@ -119,7 +119,7 @@ git --version
 ```
 
 **预期输出**：
-```text
+```git
 git version 2.43.0  # 版本号可能不同
 ```
 

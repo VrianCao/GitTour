@@ -18,7 +18,7 @@ git status
 
 Git 会提示该文件处于 **Untracked files**（未跟踪文件）列表中：
 
-```text
+```git
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
         README.md
@@ -82,7 +82,7 @@ git add README.md
 
 现在运行 `git status`，你会看到一个非常有趣的现象：`README.md` 同时出现在了两个地方！
 
-```text
+```git
 Changes to be committed:
   (use "git restore --staged <file>..." to unstage)
         modified:   README.md

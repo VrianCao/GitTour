@@ -79,7 +79,7 @@ graph LR
 
 如果你的工作区所有文件都已提交，且没有新文件，运行 `git status` 会看到：
 
-```bash
+```git
 $ git status
 On branch main
 nothing to commit, working tree clean
@@ -90,7 +90,7 @@ nothing to commit, working tree clean
 
 如果你创建了一个新文件 `README.md`，它首先是**未跟踪**的：
 
-```bash
+```git
 $ echo "My Project" > README.md
 $ git status
 On branch main
@@ -106,7 +106,7 @@ Git 明确告诉你 `README.md` 是 `Untracked files`。除非你显式告诉 Gi
 
 如果你运行 `git add README.md`，此时文件就进入了**暂存区**：
 
-```bash
+```git
 $ git add README.md
 $ git status
 On branch main
@@ -120,7 +120,7 @@ Changes to be committed:
 
 假设你还有一个叫 `CONTRIBUTING.md` 的文件之前已经被跟踪了，现在你修改了它：
 
-```bash
+```git
 $ git status
 On branch main
 Changes not staged for commit:
@@ -134,7 +134,7 @@ Changes not staged for commit:
 
 当文件变多时，`git status` 的输出会非常长。Git 提供了一个紧凑的格式：
 
-```bash
+```git
 $ git status -s
  M README.md
 MM Rakefile
