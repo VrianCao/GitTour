@@ -81,6 +81,9 @@ graph LR
 
 ```bash
 $ git status
+```
+
+```git frame=terminal
 On branch main
 nothing to commit, working tree clean
 ```
@@ -93,6 +96,9 @@ nothing to commit, working tree clean
 ```bash
 $ echo "My Project" > README.md
 $ git status
+```
+
+```git frame=terminal
 On branch main
 Untracked files:
   (use "git add <file>..." to include in what will be committed)
@@ -109,6 +115,9 @@ Git 明确告诉你 `README.md` 是 `Untracked files`。除非你显式告诉 Gi
 ```bash
 $ git add README.md
 $ git status
+```
+
+```git frame=terminal
 On branch main
 Changes to be committed:
   (use "git restore --staged <file>..." to unstage)
@@ -122,6 +131,9 @@ Changes to be committed:
 
 ```bash
 $ git status
+```
+
+```git frame=terminal
 On branch main
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
@@ -136,6 +148,9 @@ Changes not staged for commit:
 
 ```bash
 $ git status -s
+```
+
+```git frame=terminal
  M README.md
 MM Rakefile
 A  lib/git.rb

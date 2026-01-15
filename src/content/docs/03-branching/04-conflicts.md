@@ -29,7 +29,7 @@ Git 的自动合并功能非常强大，大部分时候它都能自动处理。�
 ### 1. 命令行提示
 你会在终端看到类似这样的输出：
 
-```bash
+```git frame=terminal
 Auto-merging index.html
 CONFLICT (content): Merge conflict in index.html
 Automatic merge failed; fix conflicts and then commit the result.
@@ -38,7 +38,7 @@ Automatic merge failed; fix conflicts and then commit the result.
 ### 2. 状态检查 (`git status`)
 此时系统处于“合并中”的状态。使用 `git status` 可以查看哪些文件卡住了：
 
-```bash
+```git frame=terminal
 On branch main
 You have unmerged paths.
   (fix conflicts and run "git commit")
@@ -46,7 +46,7 @@ You have unmerged paths.
 
 Unmerged paths:
   (use "git add <file>..." to mark resolution)
-	both modified:   index.html
+    both modified:   index.html
 ```
 
 ### 3. 文件内容标记

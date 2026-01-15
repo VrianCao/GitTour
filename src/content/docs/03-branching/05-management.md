@@ -19,7 +19,7 @@ git branch
 
 输出示例：
 
-```text
+```git frame=terminal
   feature-login
 * main
   bugfix-header
@@ -52,7 +52,7 @@ git branch -v
 
 输出示例：
 
-```text
+```git frame=terminal
   feature-login 1a2b3c4 Add login form validation
 * main          9f8e7d6 Merge pull request #42
   bugfix-header 5b6n7m8 Fix css alignment issue
@@ -100,7 +100,7 @@ git branch -d feature-login
 
 如果分支未合并，你会看到类似这样的错误：
 
-```text
+```git frame=terminal
 error: The branch 'feature-login' is not fully merged.
 If you are sure you want to delete it, run 'git branch -D feature-login'.
 ```

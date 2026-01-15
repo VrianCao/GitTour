@@ -1,6 +1,60 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import gitBash from './grammars/git-bash.mjs';
+
+const gitBashPalette = {
+	dark: {
+		red: '#ef2929',
+		green: '#8ae234',
+		yellow: '#fce94f',
+		blue: '#729fcf',
+		cyan: '#34e2e2',
+		magenta: '#ad7fa8',
+		gray: '#888a85',
+	},
+	light: {
+		red: '#cc0000',
+		green: '#4e9a06',
+		yellow: '#c4a000',
+		blue: '#3465a4',
+		cyan: '#06989a',
+		magenta: '#75507b',
+		gray: '#555753',
+	},
+};
+
+const applyGitBashTheme = (theme) => {
+	const palette = theme.type === 'dark' ? gitBashPalette.dark : gitBashPalette.light;
+	const settings = [
+		{ scope: ['gitbash.branch.current'], settings: { foreground: palette.green } },
+		{ scope: ['gitbash.status.staged', 'gitbash.path.staged'], settings: { foreground: palette.green } },
+		{
+			scope: [
+				'gitbash.status.unstaged',
+				'gitbash.path.unstaged',
+				'gitbash.status.unmerged',
+				'gitbash.path.unmerged',
+				'gitbash.path.untracked',
+			],
+			settings: { foreground: palette.red },
+		},
+		{ scope: ['gitbash.short-status.index'], settings: { foreground: palette.green } },
+		{ scope: ['gitbash.short-status.worktree', 'gitbash.short-status.untracked'], settings: { foreground: palette.red } },
+		{ scope: ['gitbash.commit.hash', 'gitbash.commit.keyword'], settings: { foreground: palette.yellow } },
+		{ scope: ['gitbash.diff.added', 'gitbash.diffstat.added'], settings: { foreground: palette.green } },
+		{ scope: ['gitbash.diff.removed', 'gitbash.diffstat.removed'], settings: { foreground: palette.red } },
+		{ scope: ['gitbash.diff.hunk'], settings: { foreground: palette.cyan } },
+		{
+			scope: ['gitbash.diff.meta', 'gitbash.diff.file.added', 'gitbash.diff.file.removed'],
+			settings: { fontStyle: 'bold' },
+		},
+	];
+
+	settings.forEach((entry) => theme.settings.push(entry));
+
+	return theme;
+};
 
 // https://astro.build/config
 export default defineConfig({
@@ -22,10 +76,15 @@ export default defineConfig({
 			customCss: ['./src/styles/custom.css'],
 			expressiveCode: {
 				shiki: {
+					langs: [gitBash],
 					langAlias: {
 						gitignore: 'shellscript',
+						git: 'git-bash',
+						'git-output': 'git-bash',
+						gitbash: 'git-bash',
 					},
 				},
+				customizeTheme: applyGitBashTheme,
 			},
 			components: { Head: './src/components/Head.astro' },
 			sidebar: [

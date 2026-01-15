@@ -60,7 +60,7 @@ echo "Hello, Git Internals!" | git hash-object -w --stdin
 ```
 
 输出（你的哈希值可能略有不同，取决于换行符等细节）：
-```
+```git frame=terminal
 a0423896973644771497bdc03eb99d5281615b51
 ```
 
@@ -73,13 +73,19 @@ a0423896973644771497bdc03eb99d5281615b51
 查看对象类型：
 ```bash
 git cat-file -t a0423896973644771497bdc03eb99d5281615b51
-# 输出: blob
+```
+
+```git frame=terminal
+blob
 ```
 
 查看对象内容：
 ```bash
 git cat-file -p a0423896973644771497bdc03eb99d5281615b51
-# 输出: Hello, Git Internals!
+```
+
+```git frame=terminal
+Hello, Git Internals!
 ```
 
 :::note

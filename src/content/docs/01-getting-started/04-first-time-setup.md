@@ -93,7 +93,10 @@ git config --list
 
 ```bash
 git config user.name
-# 输出: Your Name
+```
+
+```git frame=terminal
+Your Name
 ```
 
 还可以加上 `--show-origin` 来查看配置具体是在哪个文件中定义的：

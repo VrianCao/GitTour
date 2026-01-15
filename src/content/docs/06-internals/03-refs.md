@@ -17,10 +17,12 @@ description: "揭秘分支和标签的本质：它们只是指向哈希的指针
 
 ```bash
 ls -F .git/refs/
-# 输出可能包含:
-# heads/    (存放本地分支)
-# tags/     (存放标签)
-# remotes/  (存放远程分支)
+```
+
+```text frame=terminal
+heads/    (存放本地分支)
+tags/     (存放标签)
+remotes/  (存放远程分支)
 ```
 
 ### 1. 分支 (Heads)
@@ -32,8 +34,13 @@ ls -F .git/refs/
 ```bash
 # 查看 master 分支指向的提交
 cat .git/refs/heads/master
-# 输出: 1a2b3c4d5e... (一个哈希值)
+```
 
+```text frame=terminal
+1a2b3c4d5e... (一个哈希值)
+```
+
+```bash
 # 验证它是否与 git log 显示的一致
 git log -1 --format=%H
 ```
@@ -63,7 +70,10 @@ git log -1 --format=%H
 
 ```bash
 cat .git/HEAD
-# 输出: ref: refs/heads/master
+```
+
+```text frame=terminal
+ref: refs/heads/master
 ```
 
 这句话的意思是：“我现在处于 `master` 分支上”。当我们提交代码时，Git 会先解析 `HEAD` 找到 `refs/heads/master`，然后更新 `refs/heads/master` 指向新的 Commit 哈希。
@@ -77,7 +87,10 @@ git checkout 1a2b3c...
 `.git/HEAD` 的内容会直接变成该哈希值：
 ```bash
 cat .git/HEAD
-# 输出: 1a2b3c...
+```
+
+```text frame=terminal
+1a2b3c...
 ```
 这就叫 **分离头指针** 状态。此时 `HEAD` 不指向任何分支引用，因此新的提交不会更新任何分支。一旦切走，这些提交可能会被垃圾回收。
 

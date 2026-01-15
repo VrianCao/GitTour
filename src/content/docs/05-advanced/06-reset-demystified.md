@@ -146,17 +146,19 @@ graph TD
 ```bash
 # 1. 查看 HEAD 的移动历史
 git reflog
+```
 
-# 输出示例：
-# 3a1b2c (HEAD -> main) HEAD@{0}: reset: moving to HEAD~3
-# 9d8e7f HEAD@{1}: commit: feat: add user auth
-# ...
+```git frame=terminal
+3a1b2c (HEAD -> main) HEAD@{0}: reset: moving to HEAD~3
+9d8e7f HEAD@{1}: commit: feat: add user auth
+...
+```
 
+```bash
 # 2. 找到你想恢复的提交哈希（如 9d8e7f）
 # 3. 恢复到该提交
 git reset --hard 9d8e7f
 ```
-
 :::caution[Reflog 的边界]
 - Reflog 是**本地**的，不会推送到远程。
 - Reflog 条目有过期时间（默认 90 天），过期后会被垃圾回收清理。

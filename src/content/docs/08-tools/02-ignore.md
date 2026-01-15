@@ -118,6 +118,9 @@ build/keep/*
 
 ```bash
 $ git check-ignore -v app/build/temp.txt
+```
+
+```git frame=terminal
 .gitignore:3:build/    app/build/temp.txt
 ```
 *输出表示：`.gitignore` 文件的第 3 行 `build/` 规则导致了该文件被忽略。*

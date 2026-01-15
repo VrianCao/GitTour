@@ -72,7 +72,7 @@ git help config
 
 输入 `git config -h`：
 
-```text
+```git frame=terminal
 usage: git config [<options>]
 
 Config file location

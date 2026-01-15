@@ -26,7 +26,10 @@ Git 的核心本质是一个 **键值对文件系统 (Content-addressable filesy
 # 创建一个包含 "version 1" 的文件
 echo "version 1" > test.txt
 git hash-object -w test.txt
-# 输出: 83baae61804e65cc73a7201a7252750c76066a30
+```
+
+```git frame=terminal
+83baae61804e65cc73a7201a7252750c76066a30
 ```
 
 ## 2. Tree 对象 (目录结构)
@@ -37,7 +40,7 @@ Tree 对象解决了文件名和目录层级的问题。一个 Tree 对象代表
 
 一个 Tree 对象的内容看起来像这样：
 
-```text
+```git frame=terminal
 100644 blob 83baae61804e65cc73a7201a7252750c76066a30    test.txt
 040000 tree 0ab42...                                    lib
 ```
@@ -108,21 +111,27 @@ graph TD
 ```bash
 # 1. 查看最新的 Commit
 git cat-file -p HEAD
+```
 
-# 输出示例:
-# tree 5d6e...
-# parent ...
-# author ...
-# committer ...
-# message ...
+```git frame=terminal
+tree 5d6e...
+parent ...
+author ...
+committer ...
+message ...
+```
 
+```bash
 # 2. 拿着上面的 tree 哈希值，查看 Tree 对象
 git cat-file -p 5d6e...
+```
 
-# 输出示例:
-# 100644 blob 83ba...    README.md
-# 040000 tree 0ab4...    src
+```git frame=terminal
+100644 blob 83ba...    README.md
+040000 tree 0ab4...    src
+```
 
+```bash
 # 3. 拿着 blob 哈希值，查看文件内容
 git cat-file -p 83ba...
 ```

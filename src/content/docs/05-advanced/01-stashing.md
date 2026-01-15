@@ -40,7 +40,7 @@ git stash list
 ```
 
 输出示例：
-```text
+```git frame=terminal
 stash@{0}: On feature-login: 正在开发用户登录功能，暂停修Bug
 stash@{1}: On main: 之前的临时修改
 ```
